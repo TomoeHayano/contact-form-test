@@ -1,0 +1,120 @@
+body.register-page {
+  background: #F1ECE7;
+  min-height: 100vh;
+  margin: 0 !important;
+  padding-top: 0 !important
+}
+
+/* コンテナ（カード幅に合わせて中央寄せ） */
+.register{
+  max-width: 736px;
+  margin: 40px auto 80px;
+  padding: 0 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: calc(100vh - 200px);
+}
+
+/* タイトル：Inika / 35px / #8B7969 */
+.register__title{
+  margin: 0 0 24px;
+  text-align: center;
+  font-family: 'Inika', serif;
+  font-weight: 400;
+  font-size: 35px;
+  line-height: 1; /* 100% */
+  letter-spacing: 0;
+  color: #8B7969;
+}
+
+/* 白いカード：736×644 / 角10px / 枠1px #C5B9B0 */
+.register__card{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 736px;
+  max-width: 100%;
+  min-height: 644px;
+  margin: 0 auto;
+  background: #FFFFFF;
+  border: 1px solid #C5B9B0;
+  border-radius: 10px;
+  padding: 36px 44px 40px;
+  box-sizing: border-box;
+}
+
+/* 内側ラッパ：幅445pxで中央寄せ（各グループの縦間隔は後で微調整可） */
+.register__inner{
+  width: 445px;
+  max-width: 100%;
+}
+
+/* フォームグループ：スクショの“Group 111 高さ102px”に合わせやすい素直な作り */
+.form__group{ margin: 0 0 45px; }
+
+/* ラベル：Inika / 25px / #8B7969 */
+.form__label{
+  display: block;
+  margin: 0 0 8px;
+  font-family: 'Inika', serif;
+  font-weight: 400;
+  font-size: 25px;
+  line-height: 1;
+  letter-spacing: 0;
+  color: #8B7969;
+}
+
+/* 入力：幅445px / 高さ55px / 背景#F4F4F4 / 枠#E0DFDE / 角6px */
+.form__input{
+  width: 100%;
+  height: 55px;
+  padding: 10px 12px;
+  font-size: 16px;
+  border: 1px solid #E0DFDE;
+  border-radius: 6px;
+  background: #F4F4F4;
+  color: #4a4036;
+  box-sizing: border-box;
+  outline: none;
+}
+
+/* プレースホルダ：Inika / 14px（スクショ指示） */
+.form__input::placeholder{
+  font-family: 'Inika', serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1;
+  letter-spacing: 0;
+  color: #b9b1aa;
+}
+
+/* エラー表示（要件） */
+.form__error{
+  margin-top: 6px;
+  font-size: 14px;
+  color: #c0352b;
+}
+
+/* 登録ボタン */
+.button{
+  display: inline-block;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 28px;
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.button--primary{
+  background: #7b6453;
+  color: #fff;
+  display: block;
+  margin: 22px auto 0;
+  min-width: 160px;
+  text-align: center;
+}
+
+.button--primary:hover{ background: #6d594a; }
+
