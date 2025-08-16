@@ -1,0 +1,123 @@
+/* ページ背景（必要なら別CSSで body.register-page を使って切替） */
+body { margin: 0; }
+
+body.login-page { 
+  background: #F1ECE7; 
+  min-height: 100vh;
+  margin: 0;
+}
+
+/* コンテナ（中央寄せ） */
+.login {
+  max-width: 736px;
+  margin: 40px auto 80px;
+  padding: 0 16px;
+}
+
+/* タイトル：Inika 35px #8B7969 
+.login__title{
+  margin: 0 0 24px;
+  text-align: center;
+  font-family: 'Inika', serif;
+  font-weight: 400;
+  font-size: 35px;
+  line-height: 1;
+  color: #8B7969;
+} */
+
+/* 白カード：736×579 / 角10px / 枠1px #C5B9B0 / 内側inset想定は通常borderで再現 */
+.login__card{
+  width: 736px;
+  max-width: 100%;
+  min-height: 579px;
+  margin: 0 auto;
+  background: #FFFFFF;
+  border: 1px solid #C5B9B0;
+  border-radius: 10px;
+  padding: 36px 44px 40px;
+  box-sizing: border-box;
+
+  /* 中身を中央へ */
+  display: flex;
+  align-items: center;     /* 縦中央 */
+  justify-content: center; /* 横中央 */
+}
+
+/* 内側ラッパ：幅445px */
+.login__inner{
+  width: 445px;
+  max-width: 100%;
+}
+
+/* ラベル：Inika 25px #8B7969 */
+.form__label{
+  display: block;
+  margin: 0 0 8px;
+  font-family: 'Inika', serif;
+  font-weight: 400;
+  font-size: 25px;
+  line-height: 1;
+  color: #8B7969;
+}
+
+/* 入力：445×55 / 背景#F4F4F4 / 枠#E0DFDE / 角6px */
+.form__input{
+  width: 100%;
+  height: 55px;
+  padding: 10px 12px;
+  font-size: 16px;
+  border: 1px solid #E0DFDE;
+  border-radius: 6px;
+  background: #F4F4F4;
+  color: #4a4036;
+  box-sizing: border-box;
+  outline: none;
+}
+
+/* プレースホルダ：Inika 14px #BEB1A6（スクショ） */
+.form__input::placeholder{
+  font-family: 'Inika', serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1;
+  color: #BEB1A6;
+}
+
+/* 項目間隔（Group 93: 高さ102px 相当を素直に） */
+.form__group{ margin: 0 0 45px; }
+.form__group:last-of-type{ margin-bottom: 0; }
+
+/* ボタン：背景#82756A / 文字白 / パディング 10/40/10/40（Frame 14に合わせて） */
+.button{
+  display: inline-block;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 28px;
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+}
+.button--primary{
+  background: #82756A;
+  color: #FFFFFF;
+  display: block;
+  margin: 32px auto 0;
+  min-width: 160px;
+  text-align: center;
+}
+.button--primary:hover{ opacity: .9; }
+
+/* 下リンク（登録へ） */
+.login__link{ margin-top: 16px; text-align: center; }
+.login__to-register{
+  color: #8B7969;
+  text-decoration: none;
+}
+.login__to-register:hover{ text-decoration: underline; }
+
+/* エラー */
+.form__error{
+  margin-top: 6px;
+  font-size: 14px;
+  color: #c0352b;
+}

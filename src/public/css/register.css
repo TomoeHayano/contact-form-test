@@ -16,17 +16,17 @@ body.register-page {
   min-height: calc(100vh - 200px);
 }
 
-/* タイトル：Inika / 35px / #8B7969 */
+/* タイトル：Inika / 35px / #8B7969
 .register__title{
   margin: 0 0 24px;
   text-align: center;
   font-family: 'Inika', serif;
   font-weight: 400;
   font-size: 35px;
-  line-height: 1; /* 100% */
+  line-height: 1;
   letter-spacing: 0;
   color: #8B7969;
-}
+} */
 
 /* 白いカード：736×644 / 角10px / 枠1px #C5B9B0 */
 .register__card{

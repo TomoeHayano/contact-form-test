@@ -1,6 +1,7 @@
 @extends('layouts.app') 
 
 @section('title', 'Register')
+@section('page-title', 'Register')
 
 @section('css')
 <link rel="stylesheet" href="{{ asset('css/register.css') }}">
@@ -8,10 +9,8 @@
 
 @section('body-class', 'register-page')
 
-@section('content')
-<main class="register">
-  <h1 class="register__title">Register</h1>
 
+@section('content')
   <div class="register__card">
     <div class="register__inner">
       <form action="{{ route('register.store') }}" method="post" novalidate>

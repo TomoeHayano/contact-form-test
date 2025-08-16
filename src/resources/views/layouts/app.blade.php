@@ -14,13 +14,22 @@
     <header class="header">
         <div class="header__inner">
             <div class="site-title">FashionablyLate</div>
-            <nav class="header__nav">
-                <a href="{{ route('login') }}" class="header__link header__link--login">login</a>
-            </nav>
+                <nav class="header__nav">
+                    @hasSection('header-action')
+                        @yield('header-action')
+                    @else
+                        <a href="{{ route('login') }}" class="header__link header__link--login">login</a>
+                    @endif
+                </nav>
         </div>
     </header>
 
-    {{-- ページごとの内容 --}}
+    @hasSection('page-title')
+        <div class="page-title">
+            <h1 class="page-title__text">@yield('page-title')</h1>
+        </div>
+    @endif
+
     @yield('content')
 
 </body>
