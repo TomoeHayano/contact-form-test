@@ -16,20 +16,11 @@
 @section('content')
 <main class="admin">
   {{-- フィルタ --}}
-  
+
   <form method="GET" action="{{ url('/admin') }}">
-    <input type="text" name="name" value="{{ $f['name'] ?? '' }}" placeholder="例) 山田 太郎">
-    <select name="name_match">
-      <option value="partial" @selected(($f['name_match'] ?? 'partial')==='partial')>部分一致</option>
-      <option value="exact"   @selected(($f['name_match'] ?? '')==='exact')>完全一致</option>
-    </select>
-
+    <input type="text" name="name" value="{{ $f['name'] ?? '' }}" placeholder="名前やメールアドレスを入力してください">
     <input type="text" name="email" value="{{ $f['email'] ?? '' }}" placeholder="メールアドレス">
-    <select name="email_match">
-      <option value="partial" @selected(($f['email_match'] ?? 'partial')==='partial')>部分一致</option>
-      <option value="exact"   @selected(($f['email_match'] ?? '')==='exact')>完全一致</option>
-    </select>
-
+    
     <select name="gender">
       <option value="">性別</option>
       <option value="all" @selected(($f['gender'] ?? '')==='all')>全て</option>
