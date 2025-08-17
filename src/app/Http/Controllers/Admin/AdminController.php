@@ -12,115 +12,131 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class AdminController extends Controller
 {
-   public function index(Request $request)
-{
-    $q = Contact::query()->with('category');
+    
+    public function index(Request $request)
+    {
+        $query = Contact::query()->with('category');
 
-    // 1) 名前：姓/名/フルネーム + 部分一致/完全一致（デフォ部分一致）
-    $name = trim((string)$request->query('name'));
-    $nameMatch = $request->query('name_match', 'partial'); // partial|exact
-    if ($name !== '') {
-        $match = $nameMatch === 'exact' ? '=' : 'LIKE';
-        $kw    = $match === '=' ? $name : "%{$name}%";
+        // 入力を取得
+        $nameFilter     = trim((string)$request->query('name'));
+        $emailFilter    = trim((string)$request->query('email'));
+        $genderFilter   = $request->query('gender');
+        $categoryFilter = $request->query('category_id');
+        $dateFilter     = $request->query('date');
 
-        $parts = preg_split('/\s+/u', $name, -1, PREG_SPLIT_NO_EMPTY);
-        $q->where(function($qq) use ($match,$kw,$parts,$name){
-            $qq->where('last_name',  $match, $kw)
-               ->orWhere('first_name',$match, $kw);
-            if (count($parts) >= 2) {
-                [$last,$first] = [$parts[0], $parts[1]];
-                $qq->orWhere(function($w) use ($last,$first){
-                    $w->where('last_name','LIKE',"%{$last}%")
-                      ->where('first_name','LIKE',"%{$first}%");
-                });
-            }
-        });
+        
+        // 1) 名前（姓/名/フルネーム部分一致）
+        if ($nameFilter !== '') {
+            $parts = preg_split('/\s+/u', $nameFilter, -1, PREG_SPLIT_NO_EMPTY);
+            $query->where(function($where) use ($nameFilter, $parts){
+                // 姓 or 名 の部分一致
+                $where->where('last_name',  'LIKE', "%{$nameFilter}%")
+                      ->orWhere('first_name','LIKE', "%{$nameFilter}%");
+
+                // フルネーム（スペース区切りがある場合）
+                if (count($parts) >= 2) {
+                    [$last,$first] = [$parts[0], $parts[1]];
+                    $where->orWhere(function($w) use ($last,$first){
+                        $w->where('last_name', 'LIKE', "%{$last}%")
+                          ->where('first_name','LIKE', "%{$first}%");
+                    });
+                }
+            });
+        }
+
+        // 2) メール（部分一致）
+        if ($emailFilter !== '') {
+            $query->where('email', 'LIKE', "%{$emailFilter}%");
+        }
+
+        // 3) 性別（未選択は条件なし）
+        if ($genderFilter !== null && $genderFilter !== '') {
+            $query->where('gender', (int)$genderFilter);
+        }
+
+        // 4) 種別（未選択は条件なし）
+        if ($categoryFilter !== null && $categoryFilter !== '') {
+            $query->where('category_id', (int)$categoryFilter);
+        }
+
+        // 5) 日付（created_at の日付一致）
+        if ($dateFilter !== null && $dateFilter !== '') {
+            $query->whereDate('created_at', $dateFilter);
+        }
+
+        // 何も入っていなければ全件（= ブランク検索OK）
+        $contacts   = $query->orderByDesc('created_at')->paginate(7)->withQueryString();
+        $categories = Category::orderBy('id')->get();
+
+        $filters = [
+            'name'        => $nameFilter,
+            'email'       => $emailFilter,
+            'gender'      => (string)($genderFilter ?? ''),
+            'category_id' => (string)($categoryFilter ?? ''),
+            'date'        => (string)($dateFilter ?? ''),
+        ];
+
+        return view('index', compact('contacts','categories','filters'));
     }
 
-    // 2) メール
-    $email = trim((string)$request->query('email'));
-    $emailMatch = $request->query('email_match','partial'); // partial|exact
-    if ($email !== '') {
-        $match = $emailMatch === 'exact' ? '=' : 'LIKE';
-        $kw    = $match === '=' ? $email : "%{$email}%";
-        $q->where('email', $match, $kw);
+    // 詳細（暗黙の結合: URLの {contact} から自動解決）
+    public function show(Contact $contact)
+    {
+        $contact->load('category');
+        return response()->json($contact);  // モーダル用
     }
 
-    // 3) 性別（''=未選択, all=全て, 1/2/3）
-    $gender = $request->query('gender');
-    if ($gender !== null && $gender !== '' && $gender !== 'all') {
-        $q->where('gender', (int)$gender);
-    }
-
-    // 4) 種別
-    if ($request->filled('category_id')) {
-        $q->where('category_id', (int)$request->query('category_id'));
-    }
-
-    // 5) 日付
-    if ($request->filled('date')) {
-        $q->whereDate('created_at', $request->query('date'));
-    }
-
-    $contacts   = $q->orderByDesc('created_at')->paginate(7)->withQueryString();
-    $categories = Category::orderBy('id')->get();
-
-    return view('index', [
-        'contacts'=>$contacts,
-        'categories'=>$categories,
-        'f'=>$request->only(['name','name_match','email','email_match','gender','category_id','date']),
-    ]);
-}
+    // CSV エクスポート（教材意図に沿って where ... get() を明示）
     public function export(Request $request): StreamedResponse
-{
-    // index() と同じフィルタを適用（最小：必要分だけコピペ）
-    $q = \App\Models\Contact::query()->with('category');
+    {
+        $query = Contact::query()->with('category');
 
-    if (($name = trim((string)$request->query('name'))) !== '') {
-        $match = $request->query('name_match','partial') === 'exact' ? '=' : 'LIKE';
-        $kw    = $match==='=' ? $name : "%{$name}%";
-        $parts = preg_split('/\s+/u', $name, -1, PREG_SPLIT_NO_EMPTY);
-        $q->where(function($qq) use ($match,$kw,$parts){
-            $qq->where('last_name',$match,$kw)
-               ->orWhere('first_name',$match,$kw);
-            if (count($parts) >= 2) {
-                [$last,$first] = [$parts[0], $parts[1]];
-                $qq->orWhere(function($w) use ($last,$first){
-                    $w->where('last_name','LIKE',"%{$last}%")
-                      ->where('first_name','LIKE',"%{$first}%");
-                });
-            }
-        });
-    }
-    if (($email = trim((string)$request->query('email'))) !== '') {
-        $match = $request->query('email_match','partial') === 'exact' ? '=' : 'LIKE';
-        $kw    = $match==='=' ? $email : "%{$email}%";
-        $q->where('email',$match,$kw);
-    }
-    if (($g = $request->query('gender')) !== null && $g !== '' && $g !== 'all') {
-        $q->where('gender', (int)$g);
-    }
-    if ($request->filled('category_id')) {
-        $q->where('category_id', (int)$request->query('category_id'));
-    }
-    if ($request->filled('date')) {
-        $q->whereDate('created_at', $request->query('date'));
-    }
+        $nameFilter     = trim((string)$request->query('name'));
+        $emailFilter    = trim((string)$request->query('email'));
+        $genderFilter   = $request->query('gender');
+        $categoryFilter = $request->query('category_id');
+        $dateFilter     = $request->query('date');
 
-    $q->orderByDesc('created_at');
+        if ($nameFilter !== '') {
+            $parts = preg_split('/\s+/u', $nameFilter, -1, PREG_SPLIT_NO_EMPTY);
+            $query->where(function($where) use ($nameFilter, $parts){
+                $where->where('last_name',  'LIKE', "%{$nameFilter}%")
+                      ->orWhere('first_name','LIKE', "%{$nameFilter}%");
+                if (count($parts) >= 2) {
+                    [$last,$first] = [$parts[0], $parts[1]];
+                    $where->orWhere(function($w) use ($last,$first){
+                        $w->where('last_name','LIKE',"%{$last}%")
+                          ->where('first_name','LIKE',"%{$first}%");
+                    });
+                }
+            });
+        }
+        if ($emailFilter !== '') {
+            $query->where('email', 'LIKE', "%{$emailFilter}%");
+        }
+        if ($genderFilter !== null && $genderFilter !== '') {
+            $query->where('gender', (int)$genderFilter);
+        }
+        if ($categoryFilter !== null && $categoryFilter !== '') {
+            $query->where('category_id', (int)$categoryFilter);
+        }
+        if ($dateFilter !== null && $dateFilter !== '') {
+            $query->whereDate('created_at', $dateFilter);
+        }
 
-    $filename = 'contacts_'.now()->format('Ymd_His').'.csv';
-    $headers  = [
-        'Content-Type'        => 'text/csv; charset=UTF-8',
-        'Content-Disposition' => "attachment; filename={$filename}",
-    ];
+        $rows = $query->orderByDesc('created_at')->get();
 
-    return response()->stream(function() use ($q){
-        $out = fopen('php://output', 'w');
-        // Excel対策のBOM
-        fwrite($out, chr(0xEF).chr(0xBB).chr(0xBF));
-        fputcsv($out, ['ID','姓','名','性別','メール','種別','作成日']);
-        $q->chunk(500, function($rows) use ($out){
+        $filename = 'contacts_'.now()->format('Ymd_His').'.csv';
+        $headers  = [
+            'Content-Type'        => 'text/csv; charset=UTF-8',
+            'Content-Disposition' => "attachment; filename={$filename}",
+        ];
+
+        return response()->stream(function() use ($rows){
+            $out = fopen('php://output', 'w');
+            fwrite($out, chr(0xEF).chr(0xBB).chr(0xBF)); // BOM
+            fputcsv($out, ['ID','姓','名','性別','メール','種別','作成日']);
+
             foreach ($rows as $r) {
                 fputcsv($out, [
                     $r->id,
@@ -132,9 +148,7 @@ class AdminController extends Controller
                     optional($r->created_at)->format('Y-m-d H:i:s'),
                 ]);
             }
-        });
-        fclose($out);
-    }, 200, $headers);
-}
-
+            fclose($out);
+        }, 200, $headers);
+    }
 }

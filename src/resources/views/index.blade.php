@@ -1,4 +1,4 @@
-{{-- resources/views/admin/index.blade.php --}}
+{{-- resources/views/index.blade.php --}}
 @extends('layouts.app')
 
 @section('title', 'Admin')
@@ -9,56 +9,68 @@
 @endsection
 
 @section('header-action')
-  {{-- 一旦Fortify外してるならダミーでもOK。戻したら logout へ変更 --}}
+  {{-- 開発中のダミー。Fortify戻したらPOST logoutに変更推奨 --}}
   <a href="{{ url('/login') }}" class="header__link header__link--login">logout</a>
 @endsection
 
 @section('content')
+<div class="filters">
 <main class="admin">
-  {{-- フィルタ --}}
 
-  <form method="GET" action="{{ url('/admin') }}">
-    <input type="text" name="name" value="{{ $f['name'] ?? '' }}" placeholder="名前やメールアドレスを入力してください">
-    <input type="text" name="email" value="{{ $f['email'] ?? '' }}" placeholder="メールアドレス">
-    
+  {{-- フィルタ --}}
+  <form method="GET" action="{{ route('admin') }}" class="admin__filter">
+    <input type="text" name="name"  value="{{ $filters['name']  ?? '' }}" placeholder="名前やメールアドレスを入力してください">
+    <input type="text" name="email" value="{{ $filters['email'] ?? '' }}" placeholder="メールアドレス">
+
     <select name="gender">
       <option value="">性別</option>
-      <option value="all" @selected(($f['gender'] ?? '')==='all')>全て</option>
-      <option value="1"   @selected(($f['gender'] ?? '')==='1')>男性</option>
-      <option value="2"   @selected(($f['gender'] ?? '')==='2')>女性</option>
-      <option value="3"   @selected(($f['gender'] ?? '')==='3')>その他</option>
+      <option value="1" @selected(($filters['gender'] ?? '')==='1')>男性</option>
+      <option value="2" @selected(($filters['gender'] ?? '')==='2')>女性</option>
+      <option value="3" @selected(($filters['gender'] ?? '')==='3')>その他</option>
     </select>
 
     <select name="category_id">
       <option value="">お問い合わせの種類</option>
-      @foreach($categories as $cat)
-        <option value="{{ $cat->id }}" @selected(($f['category_id'] ?? '')==$cat->id)>{{ $cat->content }}</option>
+      @foreach($categories as $category)
+        <option value="{{ $category->id }}" @selected(($filters['category_id'] ?? '')==$category->id)>
+          {{ $category->content }}
+        </option>
       @endforeach
     </select>
 
-    <input type="date" name="date" value="{{ $f['date'] ?? '' }}">
+    <input type="date" name="date" value="{{ $filters['date'] ?? '' }}">
 
+    
     <button type="submit" class="btn btn--primary">検索</button>
-    <a href="{{ route('admin') }}" class="btn">リセット</a>
-    <a href="{{ route('admin.export', request()->query()) }}" class="btn">エクスポート</a>
+    <a href="{{ route('admin') }}" class="btn btn--reset">リセット</a>
   </form>
+
+  
+    <div class="filters__export">
+        <a href="{{ route('admin.export', request()->query()) }}" class="btn btn--export">エクスポート</a>
+    </div>
+    </div>
 
   {{-- 一覧 --}}
   <table class="table">
     <thead>
       <tr>
-        <th>お名前</th><th>性別</th><th>メールアドレス</th><th>お問い合わせの種類</th><th></th>
+        <th>お名前</th>
+        <th>性別</th>
+        <th>メールアドレス</th>
+        <th>お問い合わせの種類</th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
-      @forelse($contacts as $c)
+      @forelse($contacts as $contact)
         <tr>
-          <td>{{ $c->last_name }} {{ $c->first_name }}</td>
-          <td>{{ ['','男性','女性','その他'][$c->gender] ?? '' }}</td>
-          <td>{{ $c->email }}</td>
-          <td>{{ optional($c->category)->content }}</td>
+          <td>{{ $contact->last_name }} {{ $contact->first_name }}</td>
+          <td>{{ ['','男性','女性','その他'][$contact->gender] ?? '' }}</td>
+          <td>{{ $contact->email }}</td>
+          <td>{{ optional($contact->category)->content }}</td>
           <td>
-            <button class="btn btn--link js-detail" data-id="{{ $c->id }}">詳細</button>
+            <button class="btn btn--link js-detail" data-id="{{ $contact->id }}">詳細</button>
           </td>
         </tr>
       @empty
@@ -67,10 +79,11 @@
     </tbody>
   </table>
 
-  {{ $contacts->links() }} {{-- 7件/ページ --}}
+  {{-- 7件/ページ --}}
+  {{ $contacts->links() }}
 </main>
 
-{{-- モーダル（シンプル実装） --}}
+{{-- モーダル --}}
 <div id="modal" class="modal" hidden>
   <div class="modal__content">
     <button class="modal__close" aria-label="閉じる">×</button>
@@ -84,9 +97,9 @@
 </div>
 
 <script>
-document.querySelectorAll('.js-detail').forEach(btn=>{
-  btn.addEventListener('click', async ()=>{
-    const id = btn.dataset.id;
+document.querySelectorAll('.js-detail').forEach((button) => {
+  button.addEventListener('click', async () => {
+    const id = button.dataset.id;
     const res = await fetch(`{{ url('/admin') }}/${id}`);
     const data = await res.json();
 
@@ -95,24 +108,23 @@ document.querySelectorAll('.js-detail').forEach(btn=>{
       <h3>FashionablyLate</h3>
       <dl class="modal__dl">
         <dt>お名前</dt><dd>${data.last_name} ${data.first_name}</dd>
-        <dt>性別</dt><dd>${['','男性','女性','その他'][data.gender]??''}</dd>
-        <dt>メールアドレス</dt><dd>${data.email}</dd>
-        <dt>電話番号</dt><dd>${data.tel??''}</dd>
-        <dt>住所</dt><dd>${data.address??''}</dd>
-        <dt>建物名</dt><dd>${data.building??''}</dd>
-        <dt>お問い合わせの種類</dt><dd>${data.category?.content??''}</dd>
-        <dt>お問い合わせ内容</dt><dd>${data.detail??''}</dd>
+        <dt>性別</dt><dd>${['','男性','女性','その他'][data.gender] ?? ''}</dd>
+        <dt>メールアドレス</dt><dd>${data.email ?? ''}</dd>
+        <dt>電話番号</dt><dd>${data.tel ?? ''}</dd>
+        <dt>住所</dt><dd>${data.address ?? ''}</dd>
+        <dt>建物名</dt><dd>${data.building ?? ''}</dd>
+        <dt>お問い合わせの種類</dt><dd>${data.category?.content ?? ''}</dd>
+        <dt>お問い合わせ内容</dt><dd>${data.detail ?? ''}</dd>
       </dl>
     `;
     const form = document.getElementById('deleteForm');
     form.action = `{{ url('/admin') }}/${id}`;
 
-    const modal = document.getElementById('modal');
-    modal.hidden = false;
+    document.getElementById('modal').hidden = false;
   });
 });
 
-document.querySelector('.modal__close')?.addEventListener('click', ()=> {
+document.querySelector('.modal__close')?.addEventListener('click', () => {
   document.getElementById('modal').hidden = true;
 });
 </script>
