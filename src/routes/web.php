@@ -1,9 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\ContactController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -16,13 +19,25 @@ use App\Http\Controllers\Admin\AdminController;
 |
 */
 
-Route::get('/', function () {return view('welcome');});
-Route::get('/', [AuthController::class, 'index']);
-Route::post('/register', [AuthController::class, 'store'])->name('register.store');
-Route::get('/login', [LoginController::class, 'create'])->name('login');
-Route::post('/login', [LoginController::class, 'store'])->name('login.attempt');
+// お問い合わせフォーム
+Route::get('/',         [ContactController::class, 'index']);
+Route::post('/confirm', [ContactController::class, 'confirm']);
+Route::post('/thanks',  [ContactController::class, 'store']);
+Route::get('/thanks',   [ContactController::class, 'thanks']);
 
-    //Route::middleware('auth')->group(function () {});
-    Route::get('/admin', [AdminController::class, 'index'])->name('admin'); 
-Route::get('/admin/export', [AdminController::class, 'export'])->name('admin.export');
-Route::get('/admin/{contact}', [AdminController::class, 'show'])->name('admin.show');
+// 管理画面
+Route::get('/admin',            [AdminController::class, 'index']);
+Route::get('/admin/export',     [AdminController::class, 'export']);
+Route::get('/admin/{contact}',  [AdminController::class, 'show']);
+Route::delete('/admin/{contact}', [AdminController::class, 'destroy']);
+
+// Fortifyを本格導入する時に復活予定
+// Route::middleware('auth')->group(function () {
+//     // ここに /admin 系ルートを入れる
+// });
+
+// 認証
+Route::get('/register', [AuthController::class, 'index']);
+Route::post('/register',[AuthController::class, 'store']);
+Route::get('/login',    [LoginController::class, 'create']);
+Route::post('/login',   [LoginController::class, 'store']);
