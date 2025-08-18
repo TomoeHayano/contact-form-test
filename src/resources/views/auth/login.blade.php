@@ -2,16 +2,18 @@
 
 @section('title', 'Login')
 @section('page-title', 'Login')
+@section('body-class', 'login-page')
 
 @section('css')
-<link rel="stylesheet" href="{{ asset('css/login.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/login.css') }}">
 @endsection
 
 @section('header-action')
-  <a href="{{ route('register') }}" class="header__link header__link--login">register</a>
+  <a href="/register" class="header__link header__link--login">register</a>
 @endsection
 
-@section('body-class', 'login-page')
+
+  {{-- @section('body-class', 'login-page') --}}
 
 @section('content')
   <div class="login__card">

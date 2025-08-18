@@ -17,73 +17,76 @@ class AdminController extends Controller
     {
         $query = Contact::query()->with('category');
 
-        // フィルタ入力の取得（可読性の高い名前に統一）
-        $nameFilter        = trim((string) $request->query('name'));
-        $emailFilter       = trim((string) $request->query('email'));
-        $genderFilter      = $request->query('gender');
-        $categoryIdFilter  = $request->query('category_id');
-        $createdDateFilter = $request->query('date');
+        $keyword       = trim((string) $request->query('keyword'));
+        $genderFilter  = $request->query('gender');
+        $categoryFilter= $request->query('category_id');
+        $dateFilter    = $request->query('date');
 
-        // 1) 名前（姓/名/フルネーム 部分一致）
-        if ($nameFilter !== '') {
-            $nameParts = preg_split('/\s+/u', $nameFilter, -1, PREG_SPLIT_NO_EMPTY);
-            $query->where(function ($subQuery) use ($nameFilter, $nameParts) {
-                // 姓 or 名 の部分一致
-                $subQuery->where('last_name', 'LIKE', "%{$nameFilter}%")
-                         ->orWhere('first_name', 'LIKE', "%{$nameFilter}%");
+    // 1) キーワード（姓/名/フルネーム/メール の部分一致）
+    if ($keyword !== '') {
+        $parts = preg_split('/\s+/u', $keyword, -1, PREG_SPLIT_NO_EMPTY);
 
-                // フルネーム（スペース区切りされている場合のみ）
-                if (count($nameParts) >= 2) {
-                    [$last, $first] = [$nameParts[0], $nameParts[1]];
-                    $subQuery->orWhere(function ($fullNameQuery) use ($last, $first) {
-                        $fullNameQuery->where('last_name', 'LIKE', "%{$last}%")
-                                      ->where('first_name', 'LIKE', "%{$first}%");
-                    });
-                }
-            });
-        }
+        $query->where(function($where) use ($keyword, $parts){
+            // 姓 or 名 の部分一致
+            $where->where('last_name',  'LIKE', "%{$keyword}%")
+                  ->orWhere('first_name','LIKE', "%{$keyword}%");
 
-        // 2) メール（部分一致）
-        if ($emailFilter !== '') {
-            $query->where('email', 'LIKE', "%{$emailFilter}%");
-        }
+            // フルネーム（空白区切りがある場合）
+            if (count($parts) >= 2) {
+                [$last,$first] = [$parts[0], $parts[1]];
+                $where->orWhere(function($w) use ($last,$first){
+                    $w->where('last_name', 'LIKE', "%{$last}%")
+                      ->where('first_name','LIKE', "%{$first}%");
+                });
+            }
 
-        // 3) 性別（未選択は条件なし）
-        if ($genderFilter !== null && $genderFilter !== '') {
-            $query->where('gender', (int) $genderFilter);
-        }
-
-        // 4) 種別（未選択は条件なし）
-        if ($categoryIdFilter !== null && $categoryIdFilter !== '') {
-            $query->where('category_id', (int) $categoryIdFilter);
-        }
-
-        // 5) 日付（created_at の日付一致）
-        if ($createdDateFilter !== null && $createdDateFilter !== '') {
-            $query->whereDate('created_at', $createdDateFilter);
-        }
-
-        // 何も入っていなければ全件（ブランク検索OK）
-        $contacts   = $query->orderByDesc('created_at')->paginate(7)->withQueryString();
-        $categories = Category::orderBy('id')->get();
-
-        $filters = [
-            'name'        => $nameFilter,
-            'email'       => $emailFilter,
-            'gender'      => (string) ($genderFilter ?? ''),
-            'category_id' => (string) ($categoryIdFilter ?? ''),
-            'date'        => (string) ($createdDateFilter ?? ''),
-        ];
-
-        // 管理画面ビュー（直下 index.blade.php）
-        return view('index', compact('contacts', 'categories', 'filters'));
+            // メールの部分一致
+            $where->orWhere('email', 'LIKE', "%{$keyword}%");
+        });
     }
+
+    // 2) 性別（未選択なら条件なし）
+    if ($genderFilter !== null && $genderFilter !== '') {
+        $query->where('gender', (int) $genderFilter);
+    }
+
+    // 3) 種別（未選択なら条件なし）
+    if ($categoryFilter !== null && $categoryFilter !== '') {
+        $query->where('category_id', (int) $categoryFilter);
+    }
+
+    // 4) 日付（created_at の日付一致）
+    if ($dateFilter !== null && $dateFilter !== '') {
+        $query->whereDate('created_at', $dateFilter);
+    }
+
+    // 一覧
+    $contacts   = $query->orderByDesc('created_at')->paginate(7)->withQueryString();
+    $categories = Category::orderBy('id')->get();
+
+    // フォーム反映用
+    $filters = [
+        'keyword'     => $keyword,
+        'gender'      => (string)($genderFilter ?? ''),
+        'category_id' => (string)($categoryFilter ?? ''),
+        'date'        => (string)($dateFilter ?? ''),
+    ];
+
+    return view('index', compact('contacts','categories','filters'));
+}
 
     // 詳細（暗黙の結合: URLの {contact} から自動解決）
     public function show(Contact $contact)
     {
         $contact->load('category');
         return response()->json($contact); // モーダル用
+    }
+
+    public function destroy(Contact $contact)
+    {
+        $contact->delete();
+        
+        return redirect()->back()->with('success', '削除しました');
     }
 
     // CSV エクスポート（教材意図に沿って where ... get() を明示）

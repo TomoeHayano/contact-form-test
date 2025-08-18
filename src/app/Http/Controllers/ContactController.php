@@ -25,7 +25,7 @@ class ContactController extends Controller
         // 表示用にカテゴリ名を取得
         $categoryName = Category::find($input['category_id'])?->content ?? '';
 
-        return view('contact.confirm', [
+        return view('confirm', [
             'input'        => $input,
             'categoryName' => $categoryName,
         ]);
@@ -38,12 +38,12 @@ class ContactController extends Controller
 
         Contact::create($data);
 
-        return redirect()->route('contact.thanks');
+        return redirect('/thanks');
     }
 
     // サンクス
     public function thanks()
     {
-        return view('contact.thanks');
+        return view('thanks');
     }
 }

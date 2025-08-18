@@ -28,7 +28,7 @@ class ContactRequest extends FormRequest
             'first_name'   => ['required','string'],
             'gender'       => ['required','in:1,2,3'],
             'email'        => ['required','email:filter'],
-            'tel'          => ['required','regex:/^\d+$/','max_digits:5'],
+            'tel'          => ['required','digits_between:10,11'],
             'address'      => ['required','string'],
             'building'     => ['nullable','string'],
             'category_id'  => ['required','exists:categories,id'],

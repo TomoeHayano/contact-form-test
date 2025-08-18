@@ -18,7 +18,7 @@
                     @hasSection('header-action')
                         @yield('header-action')
                     @else
-                        <a href="{{ route('login') }}" class="header__link header__link--login">login</a>
+                        <a href="/login" class="header__link header__link--login">login</a>
                     @endif
                 </nav>
         </div>
