@@ -2,6 +2,8 @@
 
 @section('title', 'Admin')
 @section('page-title', 'Admin')
+@section('body-class', 'admin-page')
+
 
 @section('css')
   <link rel="stylesheet" href="{{ asset('css/admin.css') }}">

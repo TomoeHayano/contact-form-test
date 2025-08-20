@@ -1,242 +1,273 @@
-/* コンテナ */
-.admin{
-  max-width: 980px;
-  margin: 0 auto 80px;
-  padding: 0 16px;
+/* 管理画面全体のスタイル */
+.admin {
+  max-width: 1183px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Inika', serif;
+  color: #8B7969;
+  background: #FFFFFF; /* ヘッダーと同じ白背景 */
 }
 
-/* ------- 検索フォーム ------- */
-.filter{
-  display: grid;
-  grid-template-columns: 1fr auto auto;
-  gap: 10px 12px;
-  align-items: center;
-  padding: 16px;
-  background: #fff;
-  border: 1px solid #E0DFDE;
-  border-radius: 0px;
-  box-shadow: 0 6px 24px rgba(0,0,0,.06);
-  margin-bottom: 18px;
-}
-.filter input[type="text"],
-.filter input[type="date"],
-.filter select{
-  height: 38px;
-  padding: 6px 10px;
-  border: 1px solid #E0DFDE;
-  border-radius: 6px;
-  background: #F4F4F4;
-  font-size: 14px;
-  outline: none;
-}
-.filter input:focus,
-.filter select:focus{
-  border-color: #C5B9B0;
-  background: #fff;
-  box-shadow: 0 0 0 3px rgba(139,121,105,.12);
-}
-
-/* 行のまとめ（横幅の関係で並べたいとき用） */
-.filter .row{
-  display: contents;
-}
-
-/* ボタンの並び（右寄せ） */
-.filter .actions{
-  grid-column: 1 / -1;
+/* 検索フォーム */
+.admin__filter {
   display: flex;
+  flex-wrap: wrap;
   gap: 10px;
-  justify-content: flex-end;
+  margin-bottom: 20px;
+  padding: 15px 0;
 }
 
-/* ------- ボタン ------- */
-.btn{
-  display: inline-flex;
+.admin__filter input[type="text"],
+.admin__filter select,
+.admin__filter input[type="date"] {
+  padding: 8px 12px;
+  border: 1px solid #E0DFDE;
+  border-radius: 3px;
+  font-family: 'Inika', serif;
+  color: #8B7969;
+  background: #FFFFFF;
+}
+
+.admin__filter input[type="text"] {
+  flex: 1;
+  min-width: 200px;
+}
+
+/* ツールバー */
+.admin__toolbar {
+  display: flex;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
-  min-width: 110px;
-  height: 38px;
-  padding: 0 16px;
-  border: 1px solid #D9C6B5;
-  border-radius: 0px;
-  background: rgba(240,240,240,.6);
+  margin-bottom: 15px;
+}
+
+.admin__toolbar-left,
+.admin__toolbar-right {
+  display: flex;
+}
+
+/* ページャー - 隙間修正 */
+.admin__toolbar-right {
+  display: inline-flex; /* インラインフレックスに変更 */
+  gap: 0; /* 隙間をなくす */
+}
+
+.pager__page {
+  display: inline-block;
+  min-width: 30px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  margin: 0; /* マージンを削除 */
+  border: 1px solid #8B7969;
   color: #8B7969;
   text-decoration: none;
-  cursor: pointer;
-  transition: background .2s ease, box-shadow .2s ease, opacity .2s ease;
-  line-height: 1;
+  transition: all 0.2s;
 }
-.btn:hover{
-  background: rgba(240,240,240,.85);
-  box-shadow: 0 2px 10px rgba(0,0,0,.06);
-}
-.btn--primary{
-  background: #7b6453;
-  color: #fff;
-  border-color: #7b6453;
-}
-.btn--primary:hover{ background: #6d594a; }
-.btn--danger{
-  background: #c0352b;
-  border-color: #c0352b;
-  color: #fff;
-}
-.btn--danger:hover{ opacity: .9; }
-.btn--link{
-  background: transparent;
-  border: none;
-  color: #7b6453;
-  min-width: auto;
-  padding: 0 4px;
-  height: auto;
-}
-.btn--link:hover{ text-decoration: underline; box-shadow: none; }
 
-/* ------- テーブル ------- */
-.table{
+.pager__page.is-current {
+  background-color: #8B7969;
+  color: #FFFFFF;
+}
+
+.pager__page:hover:not(.is-current) {
+  background-color: rgba(139, 121, 105, 0.1);
+}
+
+/* テーブル */
+.table {
   width: 100%;
   border-collapse: collapse;
-  background: #fff;
+  margin-bottom: 30px;
+  background: #FFFFFF;
   border: 1px solid #E0DFDE;
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 0 6px 24px rgba(0,0,0,.06);
 }
-.table thead th{
+
+.table thead {
+  background-color: #8B7969;
+  color: #FFFFFF;
+}
+
+.table th {
+  padding: 12px 15px;
   text-align: left;
-  padding: 12px 14px;
-  font-weight: 600;
-  color: #4A4036;
-  background: #F7F4F2;
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.table td {
+  padding: 12px 15px;
   border-bottom: 1px solid #E0DFDE;
-}
-.table tbody td{
-  padding: 12px 14px;
-  border-top: 1px solid #F1ECE7;
-  color: #4A4036;
-}
-.table tbody tr:hover{
-  background: #FAF7F4;
+  font-size: 16px;
+  color: #8B7969;
 }
 
-/* ------- ページネーション（Laravel標準linksの簡易整形） ------- */
-.pagination{
-  display: flex;
-  gap: 6px;
-  justify-content: center;
-  align-items: center;
-  margin-top: 16px;
+.table tbody tr:hover {
+  background-color: rgba(241, 236, 231, 0.3);
 }
-.pagination .page-link,
-.pagination span,
-.pagination a{
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 36px;
-  height: 36px;
-  padding: 0 10px;
-  border: 1px solid #E0DFDE;
-  border-radius: 6px;
-  background: #fff;
-  color: #4A4036;
+
+/* ボタン */
+.btn {
+  display: inline-block;
+  padding: 8px 16px;
+  background-color: #E0DFDE;
+  color: #8B7969;
+  border: none;
+  font-family: 'Inika', serif;
+  font-size: 16px;
   text-decoration: none;
-  font-size: 14px;
-}
-.pagination .active span{
-  background: #7b6453;
-  border-color: #7b6453;
-  color: #fff;
+  cursor: pointer;
+  transition: all 0.2s;
 }
 
-/* ------- モーダル ------- */
-.modal[hidden]{ display: none; }
-.modal{
+.btn:hover {
+  background-color: #D0CFCE;
+}
+
+.btn--primary {
+  background-color: #8B7969;
+  color: #FFFFFF;
+}
+
+.btn--primary:hover {
+  background-color: #7A6A5C;
+}
+
+.btn--danger {
+  background-color: #d9534f;
+  color: #FFFFFF;
+}
+
+.btn--danger:hover {
+  background-color: #c9302c;
+}
+
+.btn--link {
+  background: none;
+  border: none;
+  color: #8B7969;
+  text-decoration: underline;
+  padding: 0;
+}
+
+.btn--link:hover {
+  background: none;
+  text-decoration: none;
+}
+
+/* エクスポートボタン - 画像に合わせて調整 */
+.admin__toolbar-left .btn {
+  background-color: #D9C6B5;
+  color: #8B7969;
+}
+
+.admin__toolbar-left .btn:hover {
+  background-color: #C9B6A5;
+}
+
+/* 検索・リセットボタン - 画像に合わせて調整 */
+.admin__filter .btn--primary {
+  background-color: #8B7969;
+  color: #FFFFFF;
+}
+
+.admin__filter .btn {
+  background-color: #D9C6B5;
+  color: #8B7969;
+}
+
+/* 詳細ボタン - 画像に合わせて調整 */
+.btn--link {
+  border: 1px solid #8B7969;
+  padding: 4px 8px;
+  text-decoration: none;
+  background: #FFFFFF;
+}
+
+.btn--link:hover {
+  background-color: rgba(139, 121, 105, 0.1);
+}
+
+/* モーダル */
+.modal {
   position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,.35);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 100;
+}
+
+/* モーダルが表示される時のスタイル */
+.modal:not([hidden]) {
   display: flex;
-  align-items: center;
   justify-content: center;
-  z-index: 1000;
+  align-items: center;
 }
-.modal__content{
-  width: min(720px, 92vw);
-  background: #fff;
-  border: 1px solid #E0DFDE;
-  border-radius: 12px;
-  box-shadow: 0 10px 30px rgba(0,0,0,.18);
-  padding: 20px 20px 16px;
+
+/* hidden属性がある場合は非表示 */
+.modal[hidden] {
+  display: none;
+}
+
+.modal__content {
   position: relative;
+  width: 80%;
+  max-width: 600px;
+  background-color: #FFFFFF;
+  border-radius: 5px;
+  padding: 20px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
-.modal__close{
+
+.modal__close {
   position: absolute;
   top: 10px;
   right: 10px;
-  width: 36px;
-  height: 36px;
-  border: 1px solid #E0DFDE;
-  border-radius: 50%;
-  background: #fff;
-  color: #8B7969;
+  font-size: 24px;
+  border: none;
+  background: none;
   cursor: pointer;
-}
-.modal__body{
-  max-height: 60vh;
-  overflow: auto;
-  padding-right: 4px;
-}
-.modal__dl{
-  display: grid;
-  grid-template-columns: 160px 1fr;
-  gap: 8px 12px;
-  margin: 8px 0 0;
-}
-.modal__dl dt{
   color: #8B7969;
-  font-weight: 600;
 }
-.modal__dl dd{
+
+.modal__body {
+  margin-bottom: 20px;
+}
+
+.modal__body h3 {
+  margin-top: 0;
+  color: #8B7969;
+  font-family: 'Inika', serif;
+  font-size: 24px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.modal__dl {
+  display: grid;
+  grid-template-columns: 30% 70%;
+  gap: 10px;
+}
+
+.modal__dl dt {
+  font-weight: bold;
+  color: #8B7969;
+}
+
+.modal__dl dd {
   margin: 0;
-  color: #4A4036;
+  color: #8B7969;
 }
-.modal__footer{
+
+.modal__footer {
   display: flex;
   justify-content: flex-end;
-  gap: 10px;
-  margin-top: 16px;
+  margin-top: 20px;
 }
 
-/* ------- 小さめ画面調整 ------- */
-@media (max-width: 640px){
-  .filter{
-    grid-template-columns: 1fr;
-  }
-  .filter .actions{
-    justify-content: stretch;
-    flex-wrap: wrap;
-  }
-  .modal__dl{
-    grid-template-columns: 1fr;
-  }
-}
-
-/* ボタンは角丸なしに */
-.btn, .btn:link, .btn:visited { border-radius: 0; }
-
-/* 検索行を1段で並べる（必要なら幅はお好みで） */
-.admin__filter { display:flex; gap:10px; align-items:center; margin: 10px 0 8px; }
-
-/* ツールバー：左＝エクスポート / 右＝ページ番号 */
-.admin__toolbar{ display:flex; align-items:center; justify-content:space-between; margin: 6px 0 10px; }
-.admin__toolbar-left .btn{ /* 左端でOK。余白はお好みで */ }
-.admin__toolbar-right{ display:flex; gap:6px; }
-
-/* 数字ページャ（角丸なし） */
-.pager__page{
-  display:inline-block; min-width:24px; padding:4px 6px; text-align:center;
-  border:1px solid #c5b9b0; text-decoration:none; color:inherit;
-}
-.pager__page.is-current{
-  background:#8B7969; color:#fff; border-color:#8B7969;
+/* bodyの背景色を上書き - 画像に合わせて */
+body.admin-page {
+  background-color: #F1ECE7;
 }
