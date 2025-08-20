@@ -4,7 +4,6 @@
 @section('page-title', 'Admin')
 @section('body-class', 'admin-page')
 
-
 @section('css')
   <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
 @endsection
@@ -45,7 +44,16 @@
   <div class="admin__toolbar-left">
     <a href="/admin/export?{{ http_build_query(request()->query()) }}" class="btn">エクスポート</a>
   </div>
+
   <div class="admin__toolbar-right">
+    <div class="pager">
+      @if ($contacts->currentPage() > 1)
+      
+          <a class="pager__prev" href="{{ $contacts->url($contacts->currentPage()-1) }}">&lt;</a>
+        @else
+          <span class="pager__prev">&lt;</span>
+        @endif
+
     @php($current = $contacts->currentPage())
     @php($last    = $contacts->lastPage())
     @for ($i = 1; $i <= $last; $i++)
@@ -55,6 +63,13 @@
         <a class="pager__page" href="{{ $contacts->url($i) }}">{{ $i }}</a>
       @endif
     @endfor
+
+    @if ($contacts->currentPage() < $last)
+        <a class="pager__next" href="{{ $contacts->url($contacts->currentPage()+1) }}">&gt;</a>
+      @else
+        <span class="pager__next">&gt;</span>
+      @endif
+    </div>
   </div>
 </div>
 
@@ -81,7 +96,6 @@
       @endforelse
     </tbody>
   </table>
-
 </main>
 
 {{-- モーダル --}}
@@ -105,7 +119,6 @@ document.querySelectorAll('.js-detail').forEach(btn=>{
 
     const body = document.querySelector('.modal__body');
     body.innerHTML = `
-      <h3>FashionablyLate</h3>
       <dl class="modal__dl">
         <dt>お名前</dt><dd>${data.last_name} ${data.first_name}</dd>
         <dt>性別</dt><dd>${['','男性','女性','その他'][data.gender]??''}</dd>
