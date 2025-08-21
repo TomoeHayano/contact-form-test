@@ -12,8 +12,6 @@
 @section('body-class', 'contact-page')
 
 @section('header-action')
-  {{-- 右上リンク（要件どおり login へ） --}}
-  <a href="/login" class="header__link header__link--login">login</a>
 @endsection
 
 @section('content')
@@ -85,17 +83,45 @@
 
         {{-- 電話番号 ※（教材要件：半角数字・ハイフンなし）--}}
         <div class="form__group">
-          <label class="form__label"><span class="form__label-text">電話番号</span> <span class="form__req">※</span></label>
-          <input
-            type="text"
-            name="tel"
-            value="{{ old('tel') }}"
-            class="form__input"
-            inputmode="numeric"
-            placeholder="例: 08012345678"
-            autocomplete="tel"
-          >
-          @error('tel') <p class="form__error">{{ $message }}</p> @enderror
+          <label class="form__label"><span class="form__label-text">電話番号</span><span class="form__req">※</span></label>
+          <div class="form__tel-fields">
+            <input
+              type="text"
+              name="tel1"
+              value="{{ old('tel1') }}"
+              class="form__input form__input--tel"
+              inputmode="numeric"
+              pattern="\d*"
+              placeholder="080"
+              maxlength="5"
+            >
+            <span class="form__tel-separator">-</span>
+            
+            <input
+              type="text"
+              name="tel2"
+              value="{{ old('tel2') }}"
+              class="form__input form__input--tel"
+              inputmode="numeric"
+              pattern="\d*"
+              placeholder="1234"
+              maxlength="5"
+            >  
+            <span class="form__tel-separator">-</span>
+            <input
+              type="text"
+              name="tel3"
+              value="{{ old('tel3') }}"
+              class="form__input form__input--tel"
+              inputmode="numeric"
+              pattern="\d*"
+              placeholder="5678"
+              maxlength="5"
+            >
+          </div>
+          @error('tel1') <p class="form__error">{{ $message }}</p> @enderror
+          @error('tel2') <p class="form__error">{{ $message }}</p> @enderror
+          @error('tel3') <p class="form__error">{{ $message }}</p> @enderror
         </div>
 
         {{-- 住所 ※ --}}

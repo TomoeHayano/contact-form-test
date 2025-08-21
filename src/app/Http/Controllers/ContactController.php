@@ -22,6 +22,12 @@ class ContactController extends Controller
         // バリデーション通過データ
         $input = $request->validated();
 
+        // 電話番号を結合
+        if (isset($input['tel1']) && isset($input['tel2']) && isset($input['tel3'])) {
+            $input['tel'] = $input['tel1'] . $input['tel2'] . $input['tel3'];
+            unset($input['tel1'], $input['tel2'], $input['tel3']);
+        }
+
         // 表示用にカテゴリ名を取得
         $categoryName = Category::find($input['category_id'])?->content ?? '';
 
@@ -35,6 +41,12 @@ class ContactController extends Controller
     public function store(ContactRequest $request)
     {
         $data = $request->validated();
+
+        // 電話番号を結合
+        if (isset($data['tel1']) && isset($data['tel2']) && isset($data['tel3'])) {
+        $data['tel'] = $data['tel1'] . $data['tel2'] . $data['tel3'];
+        unset($data['tel1'], $data['tel2'], $data['tel3']);
+    }
 
         Contact::create($data);
 
