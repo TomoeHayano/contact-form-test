@@ -251,11 +251,10 @@ select[name="category_id"] {
   width: 331px;
 }
 
-/* エラーメッセージ用のコンテナ */
-.form__error-container {
-  margin-top: 8px;
-  width: 618.82px;
-  margin-left: 311.57px;
+/* フィールドコンテナ */
+.form__field-container {
+  flex: 1;
+  min-width: 0;
 }
 
 /* エラーメッセージ */
@@ -263,4 +262,5 @@ select[name="category_id"] {
   color: #BA370D;
   font-size: 14px;
   line-height: 1.4;
+  margin-top: 8px;
 }

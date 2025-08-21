@@ -23,10 +23,10 @@ class ContactController extends Controller
         $input = $request->validated();
 
         // 電話番号を結合
-        if (isset($input['tel1']) && isset($input['tel2']) && isset($input['tel3'])) {
-            $input['tel'] = $input['tel1'] . $input['tel2'] . $input['tel3'];
-            unset($input['tel1'], $input['tel2'], $input['tel3']);
-        }
+        if (isset($contact['tel1']) && isset($contact['tel2']) && isset($contact['tel3'])) {
+        $contact['tel'] = $contact['tel1'] . $contact['tel2'] . $contact['tel3'];
+        unset($contact['tel1'], $contact['tel2'], $contact['tel3']);
+    }
 
         // 表示用にカテゴリ名を取得
         $categoryName = Category::find($input['category_id'])?->content ?? '';

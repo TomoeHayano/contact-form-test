@@ -43,8 +43,10 @@
               autocomplete="given-name"
             >
           </div>
-          @error('last_name')  <p class="form__error">{{ $message }}</p> @enderror
-          @error('first_name') <p class="form__error">{{ $message }}</p> @enderror
+          
+            @error('last_name')  <p class="form__error">{{ $message }}</p> @enderror
+            @error('first_name') <p class="form__error">{{ $message }}</p> @enderror
+          
         </div>
 
         {{-- 性別 ※（ラジオ）デフォルト：男性 --}}
@@ -70,18 +72,18 @@
         {{-- メールアドレス ※ --}}
         <div class="form__group">
           <label class="form__label"><span class="form__label-text">メールアドレス</span> <span class="form__req">※</span></label>
-          <input
-            type="email"
-            name="email"
-            value="{{ old('email') }}"
-            class="form__input"
-            placeholder="例: test@example.com"
-            autocomplete="email"
-          >
+            <input
+              type="email"
+              name="email"
+              value="{{ old('email') }}"
+              class="form__input"
+              placeholder="例: test@example.com"
+              autocomplete="email"
+            >
           @error('email') <p class="form__error">{{ $message }}</p> @enderror
         </div>
 
-        {{-- 電話番号 ※（教材要件：半角数字・ハイフンなし）--}}
+        {{-- 電話番号 --}}
         <div class="form__group">
           <label class="form__label"><span class="form__label-text">電話番号</span><span class="form__req">※</span></label>
           <div class="form__tel-fields">
