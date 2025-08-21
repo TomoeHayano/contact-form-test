@@ -14,7 +14,6 @@
 @section('css')
   <link rel="stylesheet" href="{{ asset('css/contact.css') }}">
   <style>
-    
     .header__link.header__link--login {
       display: none !important;
     }
