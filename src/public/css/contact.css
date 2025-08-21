@@ -3,7 +3,7 @@ body {
 background: #FFFFFF !important;
 }
 
-/* メインコンテナ */
+/* メイン */
 .contact {
 width: 100%;
 max-width: 1512px;
@@ -14,7 +14,7 @@ position: relative;
 padding-top: 20px;
 }
 
-/* カードコンテナ */
+/* カード */
 .contact__card {
 max-width: 972px;
 margin: 0 auto;
@@ -26,7 +26,7 @@ box-sizing: border-box;
 width: 100%;
 }
 
-/* フォーム基本スタイル */
+/* フォーム基本 */
 .form {
 width: 100%;
 }
@@ -40,7 +40,7 @@ margin-left: 0;
 margin-right: 0;
 }
 
-/* ラベルスタイル */
+/* ラベル */
 .form__label {
 width: 30%;
 min-width: 250px;
@@ -59,7 +59,7 @@ margin-left: 4px;
 display: inline-block;
 }
 
-/* 入力フィールド共通 */
+/* 入力 */
 .form__input,
 .form__select,
 .form__textarea {
@@ -81,7 +81,7 @@ color: #8B7969;
 color: #BEB1A6;
 }
 
-/* 名前フィールド */
+/* 名前 */
 .form__name-fields {
 display: flex;
 gap: 44.52px;
@@ -103,7 +103,7 @@ width: 618.82px;
 height: 38px;
 }
 
-/* 電話番号フィールド */
+/* 電話番号 */
 .form__tel-fields {
 display: flex;
 align-items: center;
@@ -146,7 +146,7 @@ line-height: 18px;
 font-family: 'Inika', serif;
 }
 
-/* ラジオボタングループ */
+/* ラジオボタン */
 .form__radios {
 display: flex;
 gap: 50px;
@@ -210,7 +210,7 @@ color: #8B7969;
   color: #8B7969;
 }
 
-/* テキストエリア */
+/* テキスト */
 .form__textarea {
 height: 129px;
 resize: vertical;

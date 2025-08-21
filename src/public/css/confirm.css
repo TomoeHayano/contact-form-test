@@ -135,7 +135,7 @@ form {
     height: auto;
 }
 
-/* ボタンエリア*/
+/* ボタン*/
 .button-group {
   display: flex;
   justify-content: center;

@@ -22,7 +22,7 @@
 - Docker 20.x / Docker Compose v2
 
 ## ER図
-![ER図](./ER図.png)
+![ER図](./er_diagram.png)
 
 ## URL
 - 開発環境: [http://localhost](http://localhost)

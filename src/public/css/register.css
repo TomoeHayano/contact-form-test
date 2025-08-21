@@ -5,7 +5,7 @@ body.register-page {
   padding-top: 0 !important
 }
 
-/* コンテナ（カード幅に合わせて中央寄せ） */
+/* コンテナ */
 .register{
   max-width: 736px;
   margin: 40px auto 80px;
@@ -16,19 +16,7 @@ body.register-page {
   min-height: calc(100vh - 200px);
 }
 
-/* タイトル：Inika / 35px / #8B7969
-.register__title{
-  margin: 0 0 24px;
-  text-align: center;
-  font-family: 'Inika', serif;
-  font-weight: 400;
-  font-size: 35px;
-  line-height: 1;
-  letter-spacing: 0;
-  color: #8B7969;
-} */
-
-/* 白いカード：736×644 / 角10px / 枠1px #C5B9B0 */
+/* カード */
 .register__card{
   display: flex;
   align-items: center;
@@ -44,16 +32,16 @@ body.register-page {
   box-sizing: border-box;
 }
 
-/* 内側ラッパ：幅445pxで中央寄せ（各グループの縦間隔は後で微調整可） */
+/* 内側ラッパ */
 .register__inner{
   width: 445px;
   max-width: 100%;
 }
 
-/* フォームグループ：スクショの“Group 111 高さ102px”に合わせやすい素直な作り */
+/* フォーム */
 .form__group{ margin: 0 0 45px; }
 
-/* ラベル：Inika / 25px / #8B7969 */
+/* ラベル */
 .form__label{
   display: block;
   margin: 0 0 8px;
@@ -65,7 +53,7 @@ body.register-page {
   color: #8B7969;
 }
 
-/* 入力：幅445px / 高さ55px / 背景#F4F4F4 / 枠#E0DFDE / 角6px */
+/* 入力 */
 .form__input{
   width: 100%;
   height: 55px;
@@ -79,7 +67,7 @@ body.register-page {
   outline: none;
 }
 
-/* プレースホルダ：Inika / 14px（スクショ指示） */
+/* プレースホルダ */
 .form__input::placeholder{
   font-family: 'Inika', serif;
   font-weight: 400;
@@ -89,7 +77,7 @@ body.register-page {
   color: #b9b1aa;
 }
 
-/* エラー表示（要件） */
+/* エラー表示 */
 .form__error{
   margin-top: 6px;
   font-size: 14px;

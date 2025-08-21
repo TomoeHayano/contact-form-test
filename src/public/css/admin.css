@@ -41,7 +41,7 @@ body {
   box-sizing: border-box;
 }   
 
-/* テキスト入力フィールド */
+/* テキスト入力 */
 .admin__filter input[type="text"] {
   flex: 0 1 400px; /* flexの成長を制限し、最大幅を設定 */
   min-width: 314px;
@@ -55,44 +55,7 @@ body {
   padding-left: 4px;
 }
 
-/* .admin__filter input[type="text"]{
-  flex: 1;
-  min-width: 314px;
-  height: 50px;
-  padding: 0 12px;
-  background: #FBFBFB;
-  border: 1px solid #E3DED9;
-  font-family: 'Inika', serif;
-  font-size: 16px;
-  color: #8B7969;
-  /* width: 347.4725px;
-  height: 50px; 
-  background: #FBFBFB; 
-  border: 1px solid #E3DED9;
-  box-sizing: border-box;
-　文字まわり
-  font-family: 'Inika', serif;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 1;
-  letter-spacing: 0;
-  color: #8B7969;
-
-  余白
-  padding: 0 12px;
-}
-
-プレースホルダー（薄いガイド文字）の見た目
-.admin__filter input[type="text"]::placeholder{
-  font-family: 'Inika', serif;
-  font-weight: 400;
-  font-size: 16px;            
-  line-height: 1;
-  letter-spacing: 0;
-  color: #BEB1A6;             
-} */
-
-/* セレクトボックス共通スタイル */
+/* セレクトボックス共通 */
 .admin__filter select {
   appearance: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='17.22' height='20' viewBox='0 0 17.22 20'%3E%3Cpath d='M8.61 20L0 0h17.22L8.61 20z' fill='%23E0DFDE'/%3E%3C/svg%3E");
@@ -102,17 +65,17 @@ body {
   padding-right: 35px;
 }
 
-/* 性別セレクト */
+/* 性別 */
 .admin__filter select[name="gender"] {
   width: 102.48px;
 }
 
-/* カテゴリーセレクト */
+/* カテゴリー */
 .admin__filter select[name="category_id"] {
   width: 223.04px;
 }
 
-/* 日付入力フィールド */
+/* 日付入力 */
 .admin__filter input[type="date"] {
   width: 148.87px;
   height: 50px;
@@ -139,13 +102,13 @@ body {
   cursor: pointer;
 }
 
-/* 日付が選択されていない時のプレースホルダー調整 */
+/* 日付が選択されていない */
 .admin__filter input[type="date"]::-webkit-datetime-edit {
   color: #8B7969;
   margin-left: 0;
 }
 
-/* 各部分のスタイリング調整 */
+/* 各部分スタイリング */
 .admin__filter input[type="date"]::-webkit-datetime-edit-year-field,
 .admin__filter input[type="date"]::-webkit-datetime-edit-month-field,
 .admin__filter input[type="date"]::-webkit-datetime-edit-day-field {
@@ -163,14 +126,14 @@ body {
   border-color: #8B7969;
 }
 
-/* ボタングループ */
+/* ボタン */
 .admin__filter-buttons {
   display: flex;
   gap: 31px;
   margin-left: auto;
 }
 
-/* 共通ボタンスタイル */
+/* 共通ボタン */
 .admin__filter-buttons .btn {
   width: 102.48px;
   height: 50px;
@@ -205,7 +168,6 @@ body {
 
 /* ツールバー */
 .admin__toolbar {
-  /* position: relative; */
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -312,7 +274,7 @@ body {
   cursor: default;
 }
 
-/* テーブルコンテナ */
+/* テーブル */
 .table-container {
   width: 100%;
   background: #FFFFFF;
@@ -320,7 +282,7 @@ body {
   box-sizing: border-box;
 }
 
-/* テーブル全体のスタイル */
+/* テーブル全体 */
 .table { 
   width: 100%;
   border-collapse: collapse;
