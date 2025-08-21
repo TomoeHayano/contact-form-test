@@ -17,7 +17,7 @@
                 <nav class="header__nav">
                     @hasSection('header-action')
                         @yield('header-action')
-                    @elseif(request()->path() !== 'contact')
+                     @elseif(request()->path() !== 'contact' && request()->path() !== '/' && request()->path() !== 'confirm')
                         <a href="/login" class="header__link header__link--login">login</a>
                     @endif
                 </nav>

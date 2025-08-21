@@ -1,0 +1,147 @@
+/* 背景色 */
+body {
+background: #FFFFFF !important;
+}
+
+body {
+  font-family: 'Inika', sans-serif;
+  margin: 0;
+  padding: 0;
+  color: #8B7969;
+}
+
+/* ページタイトル */
+.page-title {
+  text-align: center;
+  font-size: 35px;
+  font-weight: 400;
+  color: #8B7969;
+  margin: 0;
+  padding-top: 50px;
+  margin-bottom: 1.5rem;
+}
+
+/* メインコンテナ */
+.register {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0.75rem 20px;
+}
+
+.register__card {
+  width: 972px;
+  max-width: 100%;
+  border: 1px solid #E0DFDE;
+  background: #FFFFFF;
+  height: auto;
+  margin: 0 auto;
+  /* overflow: auto; */
+}
+
+.register__inner {
+  padding: 0;
+}
+
+/* 定義リスト */
+.modal__definition_list {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.modal__definition_list dt {
+  width: 305px;
+  background: #BAA899;
+  color: #FFFFFF;
+  padding: 20px;
+  font-size: 20px;
+  font-weight: 400;
+  box-sizing: border-box;
+  margin: 0;
+  border-bottom: 1px solid #E0DFDE;
+  height: 70px;
+}
+
+.modal__definition_list dd {
+  width: calc(100% - 305px);
+  padding: 20px;
+  font-size: 20px;
+  margin: 0;
+  box-sizing: border-box;
+  color: #8B7969;
+  border-bottom: 1px solid #E0DFDE;
+  height: 70px;
+  display: flex;
+  align-items: center;
+}
+
+/* お問い合わせ内容高さ */
+.modal__definition_list dt:last-of-type,
+.modal__definition_list dd:last-of-type {
+  height: auto;
+  min-height: 70px;
+  padding-bottom: 20px;
+}
+
+/* ボタンエリア */
+form {
+  width: 100%;
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+
+.button-group {
+  display: flex;
+  justify-content: center;
+  gap: 52px;
+  margin-top: 37px;
+  margin-bottom: 44px;
+  position: static;
+}
+
+.button {
+  font-size: 20px;
+  line-height: 26px;
+  color: #8B7969;
+  background: transparent;
+  border: none;
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 10px 0;
+}
+
+.button--primary {
+  background: #82756A;
+  color: #FFFFFF;
+  text-decoration: none;
+  padding: 10px 40px;
+  border: none;
+  cursor: pointer;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+  .register__card {
+    width: 100%;
+  }
+  
+  .modal__definition_list dt,
+  .modal__definition_list dd {
+    width: 100%;
+    height: auto;
+}
+
+/* ボタンエリア*/
+.button-group {
+  display: flex;
+  justify-content: center;
+  gap: 52px;
+  margin-top: 50px;
+  margin-bottom: 44px;
+  position: static;
+}  
+}

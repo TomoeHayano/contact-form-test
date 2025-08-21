@@ -11,22 +11,26 @@ class ContactController extends Controller
 {
     public function index()
     {
-        // ここだけ変更：view 名を contact に
         $categories = \App\Models\Category::orderBy('id')->get();
         return view('contact', compact('categories'));
     }
 
-    // 確認
+    // 確認画面
     public function confirm(ContactRequest $request)
     {
         // バリデーション通過データ
         $input = $request->validated();
 
         // 電話番号を結合
-        if (isset($contact['tel1']) && isset($contact['tel2']) && isset($contact['tel3'])) {
-        $contact['tel'] = $contact['tel1'] . $contact['tel2'] . $contact['tel3'];
-        unset($contact['tel1'], $contact['tel2'], $contact['tel3']);
-    }
+         $tel = preg_replace('/\D/', '', ($input['tel1'].$input['tel2'].$input['tel3']));
+        $input['tel'] = $tel;
+
+        // もし「結合後10〜11桁」も強制したい場合はここで追加チェック
+        if (strlen($tel) < 10 || strlen($tel) > 11) {
+            return back()
+                ->withErrors(['tel' => '電話番号は10〜11桁の数字で入力してください'])
+                ->withInput();
+        }
 
         // 表示用にカテゴリ名を取得
         $categoryName = Category::find($input['category_id'])?->content ?? '';
@@ -43,10 +47,16 @@ class ContactController extends Controller
         $data = $request->validated();
 
         // 電話番号を結合
-        if (isset($data['tel1']) && isset($data['tel2']) && isset($data['tel3'])) {
-        $data['tel'] = $data['tel1'] . $data['tel2'] . $data['tel3'];
+        $tel = preg_replace('/\D/', '', ($data['tel1'].$data['tel2'].$data['tel3']));
+        $data['tel'] = $tel;
         unset($data['tel1'], $data['tel2'], $data['tel3']);
-    }
+
+        // ここで10〜11桁チェックをもう一度してもOK
+        if (strlen($tel) < 10 || strlen($tel) > 11) {
+            return back()
+                ->withErrors(['tel' => '電話番号は10〜11桁の数字で入力してください'])
+                ->withInput();
+        }
 
         Contact::create($data);
 

@@ -12,13 +12,12 @@
   <a href="/register" class="header__link header__link--login">register</a>
 @endsection
 
-
-  {{-- @section('body-class', 'login-page') --}}
+@section('body-class', 'login-page')
 
 @section('content')
   <div class="login__card">
     <div class="login__inner">
-      <form class="form" action="{{ route('login.attempt') }}" method="post" novalidate>
+      <form class="form" action="{{ route('login') }}" method="post" novalidate>
         @csrf
 
         <div class="form__group">

@@ -1,24 +1,30 @@
-{{-- resources/views/contact.blade.php --}}
 @extends('layouts.app')
 
 @section('title', 'Contact')
 @section('page-title', 'Contact')
 
 @section('css')
-  {{-- 後で作る contact.css を読み込みたい場合だけ --}}
   <link rel="stylesheet" href="{{ asset('css/contact.css') }}">
 @endsection
 
 @section('body-class', 'contact-page')
 
 @section('header-action')
+
+@section('css')
+  <link rel="stylesheet" href="{{ asset('css/contact.css') }}">
+  <style>
+    
+    .header__link.header__link--login {
+      display: none !important;
+    }
+  </style>
 @endsection
 
 @section('content')
 <main class="contact">
   <div class="contact__card">
     <div class="contact__inner">
-
       <form action="/confirm" method="post" novalidate class="form form--contact">
         @csrf
 
@@ -43,10 +49,8 @@
               autocomplete="given-name"
             >
           </div>
-          
             @error('last_name')  <p class="form__error">{{ $message }}</p> @enderror
             @error('first_name') <p class="form__error">{{ $message }}</p> @enderror
-          
         </div>
 
         {{-- 性別 ※（ラジオ）デフォルト：男性 --}}
@@ -72,18 +76,18 @@
         {{-- メールアドレス ※ --}}
         <div class="form__group">
           <label class="form__label"><span class="form__label-text">メールアドレス</span> <span class="form__req">※</span></label>
-            <input
-              type="email"
-              name="email"
-              value="{{ old('email') }}"
-              class="form__input"
-              placeholder="例: test@example.com"
-              autocomplete="email"
-            >
+          <input
+            type="email"
+            name="email"
+            value="{{ old('email') }}"
+            class="form__input"
+            placeholder="例: test@example.com"
+            autocomplete="email"
+          >
           @error('email') <p class="form__error">{{ $message }}</p> @enderror
         </div>
 
-        {{-- 電話番号 --}}
+        {{-- 電話番号 ※ --}}
         <div class="form__group">
           <label class="form__label"><span class="form__label-text">電話番号</span><span class="form__req">※</span></label>
           <div class="form__tel-fields">
@@ -154,7 +158,7 @@
           @error('building') <p class="form__error">{{ $message }}</p> @enderror
         </div>
 
-        {{-- お問い合わせの種類 ※（デフォルト文言「選択してください」） --}}
+        {{-- お問い合わせの種類 ※ --}}
         <div class="form__group">
           <label class="form__label"><span class="form__label-text">お問い合わせの種類</span> <span class="form__req">※</span></label>
           <select name="category_id" class="form__select">
@@ -168,7 +172,7 @@
           @error('category_id') <p class="form__error">{{ $message }}</p> @enderror
         </div>
 
-        {{-- お問い合わせ内容 ※（120文字以内） --}}
+        {{-- お問い合わせ内容 ※ --}}
         <div class="form__group">
           <label class="form__label"><span class="form__label-text">お問い合わせ内容</span> <span class="form__req">※</span></label>
           <textarea
@@ -185,7 +189,6 @@
           <button type="submit" class="button button--primary">確認画面</button>
         </div>
       </form>
-
     </div>
   </div>
 </main>

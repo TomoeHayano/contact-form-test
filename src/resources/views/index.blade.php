@@ -9,8 +9,10 @@
 @endsection
 
 @section('header-action')
-  {{-- Fortify無し期間はダミー：将来は /logout に差し替え --}}
-  <a href="/login" class="header__link header__link--login">logout</a>
+  <form method="POST" action="{{ route('logout') }}" class="header__form">
+    @csrf
+    <button type="submit" class="header__link header__link--login">logout</button>
+  </form>
 @endsection
 
 @section('content')

@@ -8,12 +8,12 @@
   <link rel="stylesheet" href="{{ asset('css/register.css') }}">
 @endsection
 
-{{-- @section('body-class', 'register-page') --}}
+@section('body-class', 'register-page')
 
 @section('content')
   <div class="register__card">
     <div class="register__inner">
-      <form action="/register" method="post" novalidate>
+      <form action="{{ route('register') }}" method="post" novalidate>
         @csrf
 
         {{-- お名前 --}}

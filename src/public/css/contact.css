@@ -1,266 +1,279 @@
 /* 背景色 */
 body {
-  background: #FFFFFF !important;
+background: #FFFFFF !important;
 }
 
 /* メインコンテナ */
 .contact {
-  width: 100%;
-  max-width: 1512px;
-  min-height: 982px;
-  margin: 0 auto;
-  background: #FFFFFF;
-  position: relative;
-  padding-top: 20px;
+width: 100%;
+max-width: 1512px;
+min-height: 982px;
+margin: 0 auto;
+background: #FFFFFF;
+position: relative;
+padding-top: 20px;
 }
 
 /* カードコンテナ */
 .contact__card {
-  max-width: 972px;
-  margin: 0 auto;
-  padding: 0 30px;
-  box-sizing: border-box;
+max-width: 972px;
+margin: 0 auto;
+padding: 0 30px;
+box-sizing: border-box;
 }
 
 .contact__inner {
-  width: 100%;
+width: 100%;
 }
 
 /* フォーム基本スタイル */
 .form {
-  width: 100%;
+width: 100%;
 }
 
 .form__group {
-  display: flex;
-  align-items: flex-start;
-  margin-bottom: 42px;
-  width: 100%;
-  margin-left: 0;
-  margin-right: 0;
+display: flex;
+align-items: flex-start;
+margin-bottom: 42px;
+width: 100%;
+margin-left: 0;
+margin-right: 0;
 }
 
 /* ラベルスタイル */
 .form__label {
-  width: 30%;
-  min-width: 250px;
-  color: #8B7969;
-  font-family: 'Inika', serif;
-  font-size: 20px;
-  line-height: 26px;
-  display: flex;
-  align-items: center;
-  white-space: nowrap;
+width: 30%;
+min-width: 250px;
+color: #8B7969;
+font-family: 'Inika', serif;
+font-size: 20px;
+line-height: 26px;
+display: flex;
+align-items: center;
+white-space: nowrap;
 }
 
 .form__req {
-  color: #BA370D;
-  margin-left: 4px;
-  display: inline-block;
+color: #BA370D;
+margin-left: 4px;
+display: inline-block;
 }
 
 /* 入力フィールド共通 */
 .form__input,
 .form__select,
 .form__textarea {
-  height: 38px;
-  min-width: 0;
-  background: #F4F4F4;
-  border: 1px solid #E3DED9;
-  padding: 8px 12px;
-  font-family: 'Inika', serif;
-  font-size: 14px;
-  width: 618.82px;
+height: 38px;
+min-width: 0;
+background: #F4F4F4;
+border: 1px solid #E3DED9;
+padding: 8px 12px;
+font-family: 'Inika', serif;
+font-size: 14px;
+width: 618.82px;
+color: #8B7969;
 }
 
 /* プレースホルダー */
 .form__input::placeholder,
 .form__textarea::placeholder,
 .form__select:invalid {
-  color: #BEB1A6;
+color: #BEB1A6;
 }
 
 /* 名前フィールド */
 .form__name-fields {
-  display: flex;
-  gap: 44.52px;
-  flex: 1;
-  width: 618.82px;
+display: flex;
+gap: 44.52px;
+flex: 1;
+width: 618.82px;
 }
 
 .form__input--name {
-  width: calc(50% - 22.26px);
-  padding: 0 12px;
-  height: 38px;
-  line-height: 38px;
-  box-sizing: border-box; 
+width: calc(50% - 22.26px);
+padding: 0 12px;
+height: 38px;
+line-height: 38px;
+box-sizing: border-box;
 }
 
 /* メールアドレス */
 .form__input--email {
-  width: 618.82px;
-  height: 38px;
+width: 618.82px;
+height: 38px;
 }
-
 
 /* 電話番号フィールド */
 .form__tel-fields {
-  display: flex;
-  align-items: center;
-  flex: 1;
-  max-width: 618.82px;
-  gap: 20px;
+display: flex;
+align-items: center;
+flex: 1;
+max-width: 618.82px;
+gap: 20px;
 }
 
 /* 電話番号の入力欄 */
 .form__input--tel {
-  width: 178.12px;
-  height: 38px;
-  background: #F4F4F4;
-  border: 1px solid #E3DED9;
-  font-family: 'Inika', serif;
-  font-size: 14px;
-  padding: 0px;
-  text-align: center;
-  flex-shrink: 0;
-  line-height: 38px;
-  box-sizing: border-box; 
+width: 178.12px;
+height: 38px;
+background: #F4F4F4;
+border: 1px solid #E3DED9;
+font-family: 'Inika', serif;
+font-size: 14px;
+padding: 0px;
+text-align: center;
+flex-shrink: 0;
+line-height: 38px;
+box-sizing: border-box;
 }
-
 
 /* 区切り文字 */
 .form__tel-separator {
-  color: #8B7969;
-  font-size: 20px;
-  line-height: 38px;
-  font-family: 'Inika', serif;
-  width: 10.75px;
-  text-align: center;
-  flex-shrink: 0; 
+color: #8B7969;
+font-size: 20px;
+line-height: 38px;
+font-family: 'Inika', serif;
+width: 10.75px;
+text-align: center;
+flex-shrink: 0;
 }
 
 /* プレースホルダー */
 .form__input--tel::placeholder {
-  color: #BEB1A6;
-  font-size: 14px;
-  line-height: 18px;
-  font-family: 'Inika', serif;
+color: #BEB1A6;
+font-size: 14px;
+line-height: 18px;
+font-family: 'Inika', serif;
 }
 
 /* ラジオボタングループ */
 .form__radios {
-  display: flex;
-  gap: 50px;
-  align-items: center;
+display: flex;
+gap: 50px;
+align-items: center;
 }
 
 .form__radio {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  cursor: pointer;
-  color: #8B7969;
-  font-size: 18px;
+display: flex;
+align-items: center;
+gap: 8px;
+cursor: pointer;
+color: #8B7969;
+font-size: 18px;
 }
 
 .form__radio input[type="radio"] {
-  width: 20px;
-  height: 20px;
-  border: 1px solid #8B7969;
-  border-radius: 50%;
-  appearance: none;
-  position: relative;
-  cursor: pointer;
+width: 20px;
+height: 20px;
+border: 1px solid #8B7969;
+border-radius: 50%;
+appearance: none;
+position: relative;
+cursor: pointer;
 }
 
 .form__radio input[type="radio"]:checked {
-  background: #8B7969;
+background: #8B7969;
 }
 
 /* セレクトボックス */
 .form__select {
-  width: 331.68px;
-  height: 38px;
-  line-height: 38px; 
-  background: #F4F4F4;
-  border: 1px solid #E3DED9;
-  padding: 8px 12px;
-  font-family: 'Inika', serif;
-  font-size: 14px;
-  color: #BEB1A6;
-  appearance: none;
-  padding: 0 40px 0 12px;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30.71' height='20' viewBox='0 0 30.71 20'%3E%3Cpath d='M15.355 20L0 0h30.71L15.355 20z' fill='%23BEB1A6'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 10px center;
-  background-size: 15px;
+width: 331.68px;
+height: 38px;
+line-height: 38px;
+background: #F4F4F4;
+border: 1px solid #E3DED9;
+padding: 8px 12px;
+font-family: 'Inika', serif;
+font-size: 14px;
+color: #BEB1A6;
+appearance: none;
+padding: 0 40px 0 12px;
+background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30.71' height='20' viewBox='0 0 30.71 20'%3E%3Cpath d='M15.355 20L0 0h30.71L15.355 20z' fill='%23BEB1A6'/%3E%3C/svg%3E");
+background-repeat: no-repeat;
+background-position: right 10px center;
+background-size: 15px;
 }
 
 .form__select option[disabled]{
-  color: #BEB1A6;
+color: #BEB1A6;
 }
 
 .form__select option:not([disabled]) {
-  color: #BEB1A6;
+color: #8B7969;
+}
+
+/* 選択されたセレクトボックス */
+.form__select:not([value=""]):not([value="0"]),
+.form__select:focus,
+.form__select:valid {
+  color: #8B7969;
 }
 
 /* テキストエリア */
 .form__textarea {
-  height: 129px;
-  resize: vertical;
+height: 129px;
+resize: vertical;
+}
+
+/* フォーカス時のスタイル */
+.form__input:focus,
+.form__textarea:focus,
+.form__select:focus {
+  outline: none;
+  border-color: #8B7969;
+}
+
+/* 入力値がある場合のスタイル */
+.form__input:not(:placeholder-shown),
+.form__textarea:not(:placeholder-shown) {
+  color: #8B7969;
 }
 
 /* エラーメッセージ */
 .form__error {
-  color: #BA370D;
-  font-size: 14px;
-  margin-top: 4px;
+color: #BA370D;
+font-size: 14px;
+margin-top: 4px;
 }
 
 /* ボタン */
 .form__actions {
-  text-align: center;
-  margin-top: 40px;
+text-align: center;
+margin-top: 40px;
 }
 
 .button {
-  padding: 10px 40px;
-  font-family: 'Inika', serif;
-  font-size: 20px;
-  border: none;
-  cursor: pointer;
+padding: 10px 40px;
+font-family: 'Inika', serif;
+font-size: 20px;
+border: none;
+cursor: pointer;
 }
 
 .button--primary {
-  background: #82756A;
-  color: #FFFFFF;
+background: #82756A;
+color: #FFFFFF;
 }
 
 /* 入力フィールドサイズ調整 */
 input[name="email"],
 input[name="address"],
 input[name="building"] {
-  width: 618px;
+width: 618px;
 }
 
 input[name="tel"] {
-  width: 178px;
+width: 178px;
 }
 
 select[name="category_id"] {
-  width: 331px;
+width: 331px;
 }
 
 /* フィールドコンテナ */
 .form__field-container {
-  flex: 1;
-  min-width: 0;
-}
-
-/* エラーメッセージ */
-.form__error {
-  color: #BA370D;
-  font-size: 14px;
-  line-height: 1.4;
-  margin-top: 8px;
+flex: 1;
+min-width: 0;
+max-width: 618.82px;
 }

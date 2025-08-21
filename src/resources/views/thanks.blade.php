@@ -9,10 +9,9 @@
 
 <div class="container">
     <div class="thanks-content">
-    <div class="background-text">Thank you</div>
+      <div class="background-text">Thank you</div>
       <p class="thanks-message">お問い合わせありがとうございました。</p>
       <a href="/" class="home-button">HOME</a>
     </div>
-  </div>
-</main>
+</div>
 </html>
