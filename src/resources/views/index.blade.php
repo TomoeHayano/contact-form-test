@@ -35,8 +35,10 @@
     </select>
     <input type="date" name="date" value="{{ $filters['date'] ?? '' }}">
 
-    <button type="submit" class="btn btn--primary">検索</button>
-    <a href="/admin" class="btn">リセット</a>
+    <div class="admin__filter-buttons">
+        <button type="submit" class="btn btn--primary">検索</button>
+        <a href="/admin" class="btn">リセット</a>
+    </div>
   </form>
 
 {{-- ツールバー：左=エクスポート／右=数字ページャ --}}

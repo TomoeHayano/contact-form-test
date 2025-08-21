@@ -4,291 +4,247 @@ body {
 }
 
 .admin {
-  max-width: 1512px; /* 画像から確認した幅 */
-  width: 100%; /* レスポンシブ対応 */
-  min-height: 982px; /* 画像から確認した高さ */
-  margin: 0 auto; /* 中央寄せ */
-  padding: 20px; /* 内側の余白 */
+  max-width: 1512px;
+  width: 100%;
+  min-height: 982px;
+  margin: 0 auto; 
+  padding: 20px;
   font-family: 'Inika', serif;
   color: var(--accent);
   background: #FFFFFF;
   box-sizing: border-box;
 }
 
-/* レスポンシブ対応（必要に応じて） */
-@media screen and (max-width: 1540px) {
-  .admin {
-    max-width: 100%;
-    padding: 20px 15px;
-  }
-}
-
 /* 検索フォーム */
 .admin__filter {
-  display:flex;
-  gap:10px;
-  margin:0 0 20px;
-  padding:15px 0;
-  align-items:center;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin: 0 0 20px;
+  padding: 15px 0;
+  width: 100%;
+  
 }
 
+/* 共通のフォームコントロール */
 .admin__filter input[type="text"],
 .admin__filter select,
 .admin__filter input[type="date"] {
-  padding: 8px 12px;
-  border: 1px solid #E0DFDE;
+  height: 50px;
+  padding: 0px 12px;
+  background: #F4F4F4;
+  border: 1px solid #E3DED9;
   border-radius: 3px;
   font-family: 'Inika', serif;
+  font-size: 17px;
   color: #8B7969;
-  background: #FFFFFF;
+  box-sizing: border-box;
+}   
+
+/* テキスト入力フィールド */
+.admin__filter input[type="text"] {
+  flex: 0 1 400px; /* flexの成長を制限し、最大幅を設定 */
+  min-width: 314px;
+  background: #FBFBFB;
+  font-size: 16px;
 }
 
-.admin__filter input[type="text"]{
-  width: 347.4725px;            /* レイアウト幅 */
-  height: 50px;                 /* レイアウト高さ */
-  background: #FBFBFB;          /* 入力欄の背景 */
-  border: 1px solid #E3DED9;    /* 枠線 */
-  box-sizing: border-box;       /* 枠線込みで上のサイズに収める */
+.admin__filter input[type="text"]::placeholder {
+  color: #BEB1A6;
+  font-size: 16px;
+  padding-left: 4px;
+}
 
-  /* 文字まわり */
+/* .admin__filter input[type="text"]{
+  flex: 1;
+  min-width: 314px;
+  height: 50px;
+  padding: 0 12px;
+  background: #FBFBFB;
+  border: 1px solid #E3DED9;
+  font-family: 'Inika', serif;
+  font-size: 16px;
+  color: #8B7969;
+  /* width: 347.4725px;
+  height: 50px; 
+  background: #FBFBFB; 
+  border: 1px solid #E3DED9;
+  box-sizing: border-box;
+　文字まわり
   font-family: 'Inika', serif;
   font-weight: 400;
-  font-size: 16px;              /* 入力文字は16px */
-  line-height: 1;               /* ＝ 100% */
+  font-size: 16px;
+  line-height: 1;
   letter-spacing: 0;
   color: #8B7969;
 
-  /* 余白 */
+  余白
   padding: 0 12px;
 }
 
-/* プレースホルダー（薄いガイド文字）の見た目 */
+プレースホルダー（薄いガイド文字）の見た目
 .admin__filter input[type="text"]::placeholder{
   font-family: 'Inika', serif;
   font-weight: 400;
-  font-size: 16px;              /* 指示が 16/20 と混在 → 入力と同じ 16 で統一 */
+  font-size: 16px;            
   line-height: 1;
   letter-spacing: 0;
-  color: #BEB1A6;               /* 指示にあった色をガイド文字に適用 */
+  color: #BEB1A6;             
+} */
+
+/* セレクトボックス共通スタイル */
+.admin__filter select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='17.22' height='20' viewBox='0 0 17.22 20'%3E%3Cpath d='M8.61 20L0 0h17.22L8.61 20z' fill='%23E0DFDE'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 17.22px 20px;
+  padding-right: 35px;
 }
-/* 性別選択用のセレクトボックススタイル */
+
+/* 性別セレクト */
 .admin__filter select[name="gender"] {
-  box-sizing: border-box;
   width: 102.48px;
-  height: 50px;
-  background: #F4F4F4;
-  border: 1px solid #E3DED9;
-  
-  /* フォント設定 */
-  font-family: 'Inika';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 17px;
-  line-height: 22px;
-  text-align: center;
-  color: #8B7969;
-  
-  /* デフォルトの矢印を消す */
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  
-  /* パディングの調整 */
-  padding: 0;
-  padding-right: 25px; /* 矢印のスペース */
-  
-  /* 矢印用の背景画像 */
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='17.22' height='20' viewBox='0 0 17.22 20'%3E%3Cpath d='M8.61 20L0 0h17.22L8.61 20z' fill='%23E0DFDE'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 10px center;
-  background-size: 17.22px 20px;
 }
 
-/* セレクトボックスのホバー状態 */
-.admin__filter select[name="gender"]:hover {
-  cursor: pointer;
-}
-
-/* セレクトボックスのフォーカス状態 */
-.admin__filter select[name="gender"]:focus {
-  outline: none;
-  border-color: #8B7969;
-}
-
-/* セレクトボックスの間隔調整 */
-.admin__filter select[name="gender"] {
-  margin-right: 31.86px;
-  margin-left: 31.43px;
-}
-
-/* お問い合わせの種類選択用のセレクトボックススタイル */
+/* カテゴリーセレクト */
 .admin__filter select[name="category_id"] {
-  box-sizing: border-box;
   width: 223.04px;
-  height: 50px;
-  background: #F4F4F4;
-  border: 1px solid #E3DED9;
-  
-  /* フォント設定 */
-  font-family: 'Inika';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 17px;
-  line-height: 22px;
-  color: #8B7969;
-  
-  /* デフォルトの矢印を消す */
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  
-  /* パディングの調整 */
-  padding: 0 25px 0 12px; /* 右側に矢印のスペース */
-  
-  /* 矢印用の背景画像 */
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='17.22' height='20' viewBox='0 0 17.22 20'%3E%3Cpath d='M8.61 20L0 0h17.22L8.61 20z' fill='%23E0DFDE'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 10px center;
-  background-size: 17.22px 20px;
 }
 
-/* セレクトボックスのホバー状態 */
-.admin__filter select[name="category_id"]:hover {
-  cursor: pointer;
-}
-
-/* セレクトボックスのフォーカス状態 */
-.admin__filter select[name="category_id"]:focus {
-  outline: none;
-  border-color: #8B7969;
-}
-
-/* セレクトボックスの間隔調整 - 右側のボタンとの間隔 */
-.admin__filter select[name="category_id"] {
-  margin-right: 31.86px;
-}
-
-/* 日付選択用の入力フィールドスタイル  */
-.admin__filter input[name="date"] {
-  box-sizing: border-box;
+/* 日付入力フィールド */
+.admin__filter input[type="date"] {
   width: 148.87px;
   height: 50px;
-  background: #F4F4F4;
-  border: 1px solid #E3DED9;
-  
-  /* フォント設定 */
-  font-family: 'Inika';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 17px;
-  line-height: 22px;
-  color: #8B7969;
-  
-  /* デフォルトのカレンダーアイコンを消す */
+  padding-left: 24.86px;
+  position: relative;
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
-  
-  /* 右側のボタンとの間隔を設定 */
-  margin-right: 30.99px;
-  
-  /* テキスト位置の調整 */
-  padding: 13px 0 15px 24.86px; /* 上 右 下 左 */
-  text-align: left; /* 左揃えに変更 */
-  
-  /* カスタム矢印用の背景画像 */
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='17.22' height='20' viewBox='0 0 17.22 20'%3E%3Cpath d='M8.61 20L0 0h17.22L8.61 20z' fill='%23E0DFDE'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 10px center;
   background-size: 17.22px 20px;
-  position: relative;
 }
 
-
-/* 日付入力フィールドのホバー状態 */
-.admin__filter input[name="date"]:hover {
+/* カレンダーアイコンのカスタマイズ */
+.admin__filter input[type="date"]::-webkit-calendar-picker-indicator {
+  opacity: 0;
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
   cursor: pointer;
-}
-
-/* 日付入力フィールドのフォーカス状態 */
-.admin__filter input[name="date"]:focus {
-  outline: none;
-  border-color: #8B7969;
 }
 
 /* 日付が選択されていない時のプレースホルダー調整 */
-.admin__filter input[name="date"]::-webkit-datetime-edit {
+.admin__filter input[type="date"]::-webkit-datetime-edit {
   color: #8B7969;
-  margin-left: 0; /* 余分な余白を削除 */
+  margin-left: 0;
 }
 
-/* 各部分のスタイリング調整（必要に応じて） */
-.admin__filter input[name="date"]::-webkit-datetime-edit-year-field,
-.admin__filter input[name="date"]::-webkit-datetime-edit-month-field,
-.admin__filter input[name="date"]::-webkit-datetime-edit-day-field {
+/* 各部分のスタイリング調整 */
+.admin__filter input[type="date"]::-webkit-datetime-edit-year-field,
+.admin__filter input[type="date"]::-webkit-datetime-edit-month-field,
+.admin__filter input[type="date"]::-webkit-datetime-edit-day-field {
   color: #8B7969;
 }
 
-/* 日付入力フィールドのカレンダーボタン - 修正版 */
-.admin__filter input[name="date"]::-webkit-calendar-picker-indicator {
-  opacity: 0; /* 標準のカレンダーアイコンを非表示に */
-  width: 30px; /* 全体ではなく、右側だけの幅に変更 */
-  height: 30px; /* 全体ではなく、適切な高さに変更 */
-  position: absolute;
-  top: 10px; /* 上下中央に配置 */
-  right: 10px; /* 右端に配置 */
-  left: auto; /* 左の位置指定を解除 */
+/* ホバー状態 */
+.admin__filter input[type="date"]:hover {
   cursor: pointer;
+}
+
+/* フォーカス状態 */
+.admin__filter input[type="date"]:focus {
+  outline: none;
+  border-color: #8B7969;
+}
+
+/* ボタングループ */
+.admin__filter-buttons {
+  display: flex;
+  gap: 31px;
+  margin-left: auto;
+}
+
+/* 共通ボタンスタイル */
+.admin__filter-buttons .btn {
+  width: 102.48px;
+  height: 50px;
+  font-family: 'Inika', serif;
+  font-size: 18px;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 検索ボタン */
+.admin__filter-buttons .btn--primary {
+  background: #82756A;
+  border: 1px solid #8B7969;
+  color: #FFFFFF;
+}
+
+/* リセットボタン */
+.admin__filter-buttons .btn:last-child {
+  background: #D9C6B5;
+  border: 1px solid #D9C6B5;
+  color: #FFFFFF;
+  text-decoration: none;
+}
+
+.admin__filter-buttons .btn:last-child:hover {
+  background: #E3D5C8;
+  border-color: #E3D5C8;
 }
 
 /* ツールバー */
 .admin__toolbar {
+  /* position: relative; */
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 15px;
+  width: 100%;
+  margin: 20px 0;
+  padding: 0;
 }
 
 /* エクスポートボタン */
-.admin__export-btn {
-  position: absolute;
-  top: 302px;
-  left: 164px;
-  width: 148px;
-  height: 39px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.admin__toolbar-left .btn {
   padding: 8px 20px;
   gap: 10px;
   background: rgba(225, 219, 214, 0.6);
   border: none;
   border-radius: 3px;
   cursor: pointer;
-
   font-family: 'Inika', serif;
-  font-style: normal;
-  font-weight: 400;
   font-size: 18px;
-  line-height: 23px;
   color: #8B7969;
+  text-decoration: none;
+  cursor: pointer;
 }
 
-/* ページャー  */
+/* 左側（エクスポートボタン） */
+.admin__toolbar-left {
+  display: flex;
+}
+
+/* 右側（ページネーション） */
 .admin__toolbar-right {
-  position: relative;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .pager {
-  position: relative;
-  width: 219px;
-  height: 31px;
   background: #FFFFFF;
   border: 1px solid #E0DFDE;
   border-radius: 5px;
-  box-sizing: border-box;
   display: flex;
-  justify-content: space-between;
   align-items: center;
 }
 
@@ -307,6 +263,7 @@ body {
   color: #8B7969;
   text-decoration: none;
   cursor: pointer;
+  border-right: 1px solid #E0DFDE;
 }
 
 /* 次へボタン */
@@ -340,7 +297,7 @@ body {
   line-height: 23px;
   color: #8B7969;
   text-decoration: none;
-  position: relative;
+  border-right: 1px solid #E0DFDE;
 }
 
 /* 現在のページ */
@@ -349,31 +306,22 @@ body {
   color: #FFFFFF;
 }
 
-/* 区切り線 */
-.pager__page:not(:last-child)::after {
-  content: "";
-  position: absolute;
-  width: 1px;
-  height: 31px;
-  right: 0;
-  top: 0;
-  background: #E0DFDE;
+/* 非アクティブな前後ボタン */
+.pager__prev:not(a), .pager__next:not(a) {
+  opacity: 0.5;
+  cursor: default;
 }
 
 /* テーブルコンテナ */
 .table-container {
-  position: relative;
-  width: 1183px;
-  height: 570px;
-  margin-left: 163px;
-  margin-top: 364px;
+  width: 100%;
   background: #FFFFFF;
   border: 1px solid #E0DFDE;
   box-sizing: border-box;
 }
 
 /* テーブル全体のスタイル */
-.table {
+.table { 
   width: 100%;
   border-collapse: collapse;
   font-family: 'Inika', serif;
@@ -389,10 +337,10 @@ body {
 .table th {
   font-weight: 700;
   font-size: 20px;
-  line-height: 26px;
   color: #FFFFFF;
   text-align: left;
-  padding: 16px 0;
+  padding: 16px;
+  background: #8B7969;
 }
 
 /* 列の幅と位置の調整 */
@@ -483,6 +431,7 @@ body {
   text-align: center;
 }
 
+/* ホバー状態 */
 .btn.btn--link:hover {
   background: rgba(244, 244, 244, 0.5);
 }
@@ -494,111 +443,11 @@ body {
   font-size: 18px;
 }
 
-
-
-
-/* エクスポートボタン - 画像に合わせて調整 
-.admin__toolbar-left .btn {
-  background-color: #D9C6B5;
-  color: #8B7969;
-}
-
-.admin__toolbar-left .btn:hover {
-  background-color: #C9B6A5;
-}*/
-
-/* 検索ボタンのスタイル */
-.admin__filter button.btn.btn--primary {
-  box-sizing: border-box;
-  width: 102.48px;
-  height: 50px;
-  background: #82756A;
-  border: 1px solid #8B7969;
-  
-  /* フォント設定 */
-  font-family: 'Inika';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 18px;
-  line-height: 23px;
-  text-align: center;
-  color: #FFFFFF;
-  
-  /* ボタンスタイルのリセット */
-  padding: 0;
-  cursor: pointer;
-  
-  /* 右側のボタンとの間隔 */
-  margin-right: 31.05px;
-}
-
-/* ホバー状態 */
-.admin__filter button.btn.btn--primary:hover {
-  background: #8B7969;
-}
-
-/* フォーカス状態 */
-.admin__filter button.btn.btn--primary:focus {
-  outline: none;
-  box-shadow: 0 0 0 2px rgba(139, 121, 105, 0.3);
-}
-
-/* アクティブ状態（クリック時） */
-.admin__filter button.btn.btn--primary:active {
-  background: #756A60;
-}
-
-/* リセットボタンのスタイル */
-.admin__filter a.btn {
-  box-sizing: border-box;
-  position: relative; /* flexレイアウト内で位置調整するため */
-  width: 102.48px;
-  height: 50px;
-  background: #D9C6B5;
-  border: 1px solid #D9C6B5;
-  
-  /* フォント設定 */
-  font-family: 'Inika';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 18px;
-  line-height: 23px;
-  text-align: center;
-  color: #FFFFFF;
-  
-  /* リンクのスタイルをリセット */
-  text-decoration: none;
-  
-  /* 左側のボタン（検索ボタン）からの間隔 */
-   margin-left: 10px;
-  
-  /* 縦方向の中央寄せ用 */
+/* ボタングループのコンテナ */
+.admin__filter-buttons {
   display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-/* ホバー状態 */
-.admin__filter a.btn:hover {
-  background: #E3D5C8;
-  border-color: #E3D5C8;
-}
-
-/* フォーカス状態 */
-.admin__filter a.btn:focus {
-  outline: none;
-  box-shadow: 0 0 0 2px rgba(217, 198, 181, 0.5);
-}
-
-/* アクティブ状態（クリック時） */
-.admin__filter a.btn:active {
-  background: #CABAAA;
-  border-color: #CABAAA;
-}
-
-.admin__filter .btn {
-  background-color: #D9C6B5;
-  color: #8B7969;
+  gap: 31px; /* ボタン間の間隔を設定 */
+  margin-left: auto; /* 右寄せ */
 }
 
 /* 詳細ボタン - 画像に合わせて調整 */
@@ -751,7 +600,6 @@ body {
   color: #D9C6B5;
   cursor: pointer;
 }
-
 
 .btn--link:hover {
   background: none;
